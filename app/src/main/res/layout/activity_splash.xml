@@ -1,0 +1,22 @@
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.ui.splash.SplashActivity"
+    app:layoutDescription="@xml/activity_splash_scene">
+
+    <ImageView
+        android:id="@+id/iv_dash"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/img_dash"/>
+
+    <ImageView
+        android:id="@+id/iv_arsy"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/ic_arsy"/>
+
+</androidx.constraintlayout.motion.widget.MotionLayout>
