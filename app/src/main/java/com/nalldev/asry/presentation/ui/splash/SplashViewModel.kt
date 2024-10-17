@@ -1,6 +1,7 @@
 package com.nalldev.asry.presentation.ui.splash
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.nalldev.asry.domain.usecases.CheckUserSessionUseCase
 import com.nalldev.asry.util.SingleLiveEvent
@@ -14,7 +15,9 @@ import javax.inject.Inject
 class SplashViewModel @Inject constructor(
     private val checkUserSessionUseCase: CheckUserSessionUseCase
 ) : ViewModel() {
-    var motionProgress = 0.0f
+
+    private val _motionProgress : MutableLiveData<Float> = MutableLiveData(0.0f)
+    val motionProgress : LiveData<Float> = _motionProgress
 
     private val _navigationEvent = SingleLiveEvent<NavigationDestination>()
     val navigationEvent: LiveData<NavigationDestination> = _navigationEvent
@@ -29,17 +32,21 @@ class SplashViewModel @Inject constructor(
                 if (hasSession) {
                     _navigationEvent.postValue(NavigationDestination.MAIN_ACTIVITY)
                 } else {
-                    _navigationEvent.postValue(NavigationDestination.LOGIN_ACTIVITY)
+                    _navigationEvent.postValue(NavigationDestination.AUTH_ACTIVITY)
                 }
             }, { _ ->
-                _navigationEvent.postValue(NavigationDestination.LOGIN_ACTIVITY)
+                _navigationEvent.postValue(NavigationDestination.AUTH_ACTIVITY)
             })
 
         disposables.add(disposable)
     }
 
+    fun storeMotionProgress(progress: Float) {
+        _motionProgress.postValue(progress)
+    }
+
     enum class NavigationDestination {
         MAIN_ACTIVITY,
-        LOGIN_ACTIVITY
+        AUTH_ACTIVITY
     }
 }

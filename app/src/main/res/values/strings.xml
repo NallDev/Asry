@@ -11,5 +11,21 @@
     <string name="error_code_500">We\'re experiencing some issues. Please try again later.</string>
     <string name="error_code_default">An unexpected error occurred. Please try again.</string>
     <string name="no_internet_connection">No internet connection. Please check your network settings.</string>
+    <string name="hello_there">Hello, There</string>
+    <string name="welcome">Welcome</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="email_hint">Your unique email…</string>
+    <string name="password_hint">Your best password…</string>
+    <string name="invalid_email_msg">I think your email format is wrong</string>
+    <string name="min_character_msg">Must be at least 8 characters</string>
+    <string name="login_to_your_account">Login to Your Account</string>
+    <string name="make_sure_that_you_already_have_an_account">Make sure that you already have an account</string>
+    <string name="email_address">Email Address</string>
+    <string name="password">Password</string>
+    <string name="create_your_account">Create Your Account</string>
+    <string name="make_sure_your_account_keep_secure">Make sure your account keep secure</string>
+    <string name="username">Username</string>
+    <string name="username_hint">Your great username…</string>
 
 </resources>

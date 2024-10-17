@@ -1,6 +1,7 @@
 package com.nalldev.asry.presentation.ui.splash
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -9,6 +10,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.nalldev.asry.R
 import com.nalldev.asry.databinding.ActivitySplashBinding
+import com.nalldev.asry.presentation.ui.auth.AuthActivity
+import com.nalldev.asry.presentation.ui.home.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @SuppressLint("CustomSplashScreen")
@@ -31,30 +34,40 @@ class SplashActivity : AppCompatActivity() {
         }
 
         initObserver()
-        initView()
+        initListener()
     }
 
     private fun initObserver() {
+        viewModel.motionProgress.observe(this) { progress ->
+            binding.root.progress = progress
+        }
+
         viewModel.navigationEvent.observe(this) { navigationEvent ->
             when (navigationEvent) {
                 SplashViewModel.NavigationDestination.MAIN_ACTIVITY -> {
-                    println("KE MAIN BERHASIL")
+                    navigateToMainActivity()
                 }
-
-                SplashViewModel.NavigationDestination.LOGIN_ACTIVITY -> {
-                    println("KE LOGIN BERHASIL")
-                }
-
                 else -> {
-                    println("KE LOGIN GAGAL")
+                    navigateToAuthActivity()
                 }
             }
         }
     }
 
-    private fun initView() {
+    private fun navigateToMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    private fun navigateToAuthActivity() {
+        val intent = Intent(this, AuthActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    private fun initListener() {
         binding.root.post {
-            binding.root.progress = viewModel.motionProgress
             binding.root.transitionToEnd {
                 viewModel.checkUserSession()
             }
@@ -63,6 +76,6 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        viewModel.motionProgress = binding.root.progress
+        viewModel.storeMotionProgress(binding.root.progress)
     }
 }
