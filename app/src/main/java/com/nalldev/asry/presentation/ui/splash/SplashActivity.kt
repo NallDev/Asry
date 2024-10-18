@@ -12,6 +12,7 @@ import com.nalldev.asry.R
 import com.nalldev.asry.databinding.ActivitySplashBinding
 import com.nalldev.asry.presentation.ui.auth.AuthActivity
 import com.nalldev.asry.presentation.ui.home.MainActivity
+import com.nalldev.asry.util.CommonHelper
 import dagger.hilt.android.AndroidEntryPoint
 
 @SuppressLint("CustomSplashScreen")
@@ -33,23 +34,31 @@ class SplashActivity : AppCompatActivity() {
             insets
         }
 
+        CommonHelper.useLightTheme(this)
+
         initObserver()
         initListener()
     }
 
-    private fun initObserver() {
-        viewModel.motionProgress.observe(this) { progress ->
+    private fun initObserver() = with(viewModel) {
+        motionProgress.observe(this@SplashActivity) { progress ->
             binding.root.progress = progress
         }
 
-        viewModel.navigationEvent.observe(this) { navigationEvent ->
-            when (navigationEvent) {
-                SplashViewModel.NavigationDestination.MAIN_ACTIVITY -> {
-                    navigateToMainActivity()
-                }
-                else -> {
-                    navigateToAuthActivity()
-                }
+        navigationEvent.observe(this@SplashActivity) { navigationEvent ->
+            if (navigationEvent == SplashViewModel.NavigationDestination.AUTH_ACTIVITY) {
+                navigateToAuthActivity()
+            }
+            if (navigationEvent == SplashViewModel.NavigationDestination.MAIN_ACTIVITY) {
+                navigateToMainActivity()
+            }
+        }
+    }
+
+    private fun initListener() = with(binding) {
+        root.post {
+            root.transitionToEnd {
+                viewModel.checkUserSession()
             }
         }
     }
@@ -64,14 +73,6 @@ class SplashActivity : AppCompatActivity() {
         val intent = Intent(this, AuthActivity::class.java)
         startActivity(intent)
         finish()
-    }
-
-    private fun initListener() {
-        binding.root.post {
-            binding.root.transitionToEnd {
-                viewModel.checkUserSession()
-            }
-        }
     }
 
     override fun onPause() {

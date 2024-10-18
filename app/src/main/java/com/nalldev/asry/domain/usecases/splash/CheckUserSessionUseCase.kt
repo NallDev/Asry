@@ -1,4 +1,4 @@
-package com.nalldev.asry.domain.usecases
+package com.nalldev.asry.domain.usecases.splash
 
 import com.nalldev.asry.domain.repositories.SplashRepository
 import io.reactivex.rxjava3.core.Single

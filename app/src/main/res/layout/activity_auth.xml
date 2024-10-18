@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -8,350 +8,373 @@
     android:background="@color/colorPrimary"
     tools:context=".presentation.ui.auth.AuthActivity">
 
-    <androidx.constraintlayout.motion.widget.MotionLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layoutDescription="@xml/activity_auth_scene">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv_greeting_first"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
-            android:fontFamily="@font/space_grotesk_regular"
-            android:text="@string/hello_there"
-            android:textColor="#66FFFFFF"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_greeting_second"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/space_grotesk_medium"
-            android:text="@string/welcome"
-            android:textColor="@color/white"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="@+id/tv_greeting_first"
-            app:layout_constraintStart_toStartOf="@+id/tv_greeting_first"
-            app:layout_constraintTop_toBottomOf="@id/tv_greeting_first" />
-
-        <View
-            android:id="@+id/v_background_switch"
-            android:layout_width="0dp"
-            android:layout_height="56dp"
-            android:layout_marginHorizontal="48dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/shape_round_auth"
-            android:backgroundTint="@color/blue_300"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_greeting_second" />
-
-        <View
-            android:id="@+id/v_indicator_switch"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_margin="4dp"
-            android:background="@drawable/shape_round_auth"
-            android:backgroundTint="@color/white"
-            app:layout_constraintBottom_toBottomOf="@id/v_background_switch"
-            app:layout_constraintEnd_toStartOf="@+id/guideline_center"
-            app:layout_constraintStart_toStartOf="@id/v_background_switch"
-            app:layout_constraintTop_toTopOf="@id/v_background_switch" />
-
-        <TextView
-            android:id="@+id/tv_login"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:fontFamily="@font/space_grotesk_bold"
-            android:gravity="center"
-            android:includeFontPadding="false"
-            android:text="@string/login"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@id/v_background_switch"
-            app:layout_constraintEnd_toStartOf="@id/guideline_center"
-            app:layout_constraintStart_toStartOf="@id/v_background_switch"
-            app:layout_constraintTop_toTopOf="@id/v_background_switch" />
-
-        <TextView
-            android:id="@+id/tv_register"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:fontFamily="@font/space_grotesk_bold"
-            android:gravity="center"
-            android:includeFontPadding="false"
-            android:text="@string/register"
-            android:textColor="@color/text_sub"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@id/v_background_switch"
-            app:layout_constraintEnd_toEndOf="@id/v_background_switch"
-            app:layout_constraintStart_toEndOf="@id/guideline_center"
-            app:layout_constraintTop_toTopOf="@id/v_background_switch" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.5" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_login"
+        <androidx.constraintlayout.motion.widget.MotionLayout
+            android:id="@+id/motion_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/shape_round_top"
-            android:backgroundTint="@color/white"
-            android:paddingHorizontal="24dp"
-            android:paddingTop="24dp"
-            android:paddingBottom="40dp"
-            android:layout_marginBottom="40dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/v_indicator_switch">
+            app:layoutDescription="@xml/activity_auth_scene">
 
             <TextView
-                android:id="@+id/tv_login_label"
-                android:layout_width="0dp"
+                android:id="@+id/tv_greeting_first"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/space_grotesk_bold"
-                android:text="@string/login_to_your_account"
-                android:textColor="@color/black"
-                android:textSize="16sp"
+                android:layout_marginTop="48dp"
+                android:fontFamily="@font/space_grotesk_regular"
+                android:text="@string/hello_there"
+                android:textColor="#66FFFFFF"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_login_label_desc"
-                android:layout_width="0dp"
+                android:id="@+id/tv_greeting_second"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:fontFamily="@font/space_grotesk_regular"
-                android:text="@string/make_sure_that_you_already_have_an_account"
-                android:textColor="@color/text_hint"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_login_label" />
+                android:fontFamily="@font/space_grotesk_medium"
+                android:text="@string/welcome"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="@+id/tv_greeting_first"
+                app:layout_constraintStart_toStartOf="@+id/tv_greeting_first"
+                app:layout_constraintTop_toBottomOf="@id/tv_greeting_first" />
 
-            <TextView
-                android:id="@+id/tv_email_login_label"
+            <View
+                android:id="@+id/v_background_switch"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:fontFamily="@font/space_grotesk_bold"
-                android:text="@string/email_address"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_login_label_desc" />
-
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/ed_login_email"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/shape_edittext_outlined"
-                android:fontFamily="@font/space_grotesk_regular"
-                android:hint="@string/email_hint"
-                android:paddingHorizontal="16dp"
-                android:textSize="14sp"
-                android:textColor="@color/black"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_email_login_label" />
-
-            <TextView
-                android:id="@+id/tv_password_login_label"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="56dp"
+                android:layout_marginHorizontal="48dp"
                 android:layout_marginTop="16dp"
-                android:fontFamily="@font/space_grotesk_bold"
-                android:text="@string/password"
-                android:textColor="@color/black"
-                android:textSize="14sp"
+                android:background="@drawable/shape_round_auth"
+                android:backgroundTint="@color/blue_300"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ed_login_email" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_greeting_second" />
 
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/ed_login_password"
+            <View
+                android:id="@+id/v_indicator_switch"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/shape_edittext_outlined"
-                android:fontFamily="@font/space_grotesk_regular"
-                android:hint="@string/password_hint"
-                android:inputType="textPassword"
-                android:paddingHorizontal="16dp"
-                android:textSize="14sp"
-                android:textColor="@color/black"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_password_login_label" />
+                android:layout_height="0dp"
+                android:layout_margin="4dp"
+                android:background="@drawable/shape_round_auth"
+                android:backgroundTint="@color/white"
+                app:layout_constraintBottom_toBottomOf="@id/v_background_switch"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_center"
+                app:layout_constraintStart_toStartOf="@id/v_background_switch"
+                app:layout_constraintTop_toTopOf="@id/v_background_switch" />
 
-            <com.google.android.material.button.MaterialButton
-                style="@style/Widget.Material3.Button.TextButton"
+            <TextView
+                android:id="@+id/tv_login"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="64dp"
+                android:layout_height="0dp"
                 android:fontFamily="@font/space_grotesk_bold"
+                android:gravity="center"
+                android:includeFontPadding="false"
                 android:text="@string/login"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                app:backgroundTint="@color/colorPrimary"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ed_login_password"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_register"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/shape_round_top"
-            android:backgroundTint="@color/white"
-            android:paddingHorizontal="24dp"
-            android:paddingTop="24dp"
-            android:paddingBottom="40dp"
-            android:layout_marginBottom="40dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/v_indicator_switch">
-
-            <TextView
-                android:id="@+id/tv_register_label"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/space_grotesk_bold"
-                android:text="@string/create_your_account"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tv_register_label_desc"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:fontFamily="@font/space_grotesk_regular"
-                android:text="@string/make_sure_your_account_keep_secure"
-                android:textColor="@color/text_hint"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_register_label" />
-
-            <TextView
-                android:id="@+id/tv_username_register_label"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:fontFamily="@font/space_grotesk_bold"
-                android:text="@string/username"
                 android:textColor="@color/black"
                 android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_register_label_desc" />
-
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/ed_register_name"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/shape_edittext_outlined"
-                android:fontFamily="@font/space_grotesk_regular"
-                android:hint="@string/username_hint"
-                android:textColor="@color/black"
-                android:paddingHorizontal="16dp"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_username_register_label" />
+                app:layout_constraintBottom_toBottomOf="@id/v_background_switch"
+                app:layout_constraintEnd_toStartOf="@id/guideline_center"
+                app:layout_constraintStart_toStartOf="@id/v_background_switch"
+                app:layout_constraintTop_toTopOf="@id/v_background_switch" />
 
             <TextView
-                android:id="@+id/tv_email_register_label"
+                android:id="@+id/tv_register"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_height="0dp"
                 android:fontFamily="@font/space_grotesk_bold"
-                android:text="@string/email_address"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ed_register_name" />
-
-            <com.nalldev.asry.util.EmailEditText
-                android:id="@+id/ed_register_email"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/shape_edittext_outlined"
-                android:fontFamily="@font/space_grotesk_regular"
-                android:paddingHorizontal="16dp"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_email_register_label" />
-
-            <TextView
-                android:id="@+id/tv_password_register_label"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/space_grotesk_bold"
-                android:text="@string/password"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ed_register_email" />
-
-            <com.nalldev.asry.util.PasswordEditText
-                android:id="@+id/ed_register_password"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/shape_edittext_outlined"
-                android:fontFamily="@font/space_grotesk_regular"
-                android:paddingHorizontal="16dp"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_password_register_label" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/Widget.Material3.Button.TextButton"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="64dp"
-                android:fontFamily="@font/space_grotesk_bold"
+                android:gravity="center"
+                android:includeFontPadding="false"
                 android:text="@string/register"
-                android:textColor="@color/white"
+                android:textColor="@color/text_sub"
                 android:textSize="14sp"
-                app:backgroundTint="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="@id/v_background_switch"
+                app:layout_constraintEnd_toEndOf="@id/v_background_switch"
+                app:layout_constraintStart_toEndOf="@id/guideline_center"
+                app:layout_constraintTop_toTopOf="@id/v_background_switch" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="40dp"
+                android:background="@drawable/shape_round_top"
+                android:backgroundTint="@color/white"
+                android:paddingHorizontal="24dp"
+                android:paddingTop="24dp"
+                android:paddingBottom="40dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ed_register_password"/>
+                app:layout_constraintTop_toBottomOf="@id/v_indicator_switch">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/tv_login_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/space_grotesk_bold"
+                    android:text="@string/login_to_your_account"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.motion.widget.MotionLayout>
+                <TextView
+                    android:id="@+id/tv_login_label_desc"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/space_grotesk_regular"
+                    android:text="@string/make_sure_that_you_already_have_an_account"
+                    android:textColor="@color/text_hint"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_login_label" />
 
-</androidx.core.widget.NestedScrollView>
+                <TextView
+                    android:id="@+id/tv_email_login_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/space_grotesk_bold"
+                    android:text="@string/email_address"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_login_label_desc" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/ed_login_email"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/shape_edittext_outlined"
+                    android:fontFamily="@font/space_grotesk_regular"
+                    android:hint="@string/email_hint"
+                    android:inputType="textEmailAddress"
+                    android:imeOptions="actionDone"
+                    android:paddingHorizontal="16dp"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_email_login_label" />
+
+                <TextView
+                    android:id="@+id/tv_password_login_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/space_grotesk_bold"
+                    android:text="@string/password"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ed_login_email" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/ed_login_password"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/shape_edittext_outlined"
+                    android:fontFamily="@font/space_grotesk_regular"
+                    android:hint="@string/password_hint"
+                    android:imeOptions="actionDone"
+                    android:inputType="textPassword"
+                    android:paddingHorizontal="16dp"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_password_login_label" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_login"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="64dp"
+                    android:enabled="false"
+                    android:fontFamily="@font/space_grotesk_bold"
+                    android:text="@string/login"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    app:backgroundTint="@color/button_disable"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ed_login_password" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="40dp"
+                android:background="@drawable/shape_round_top"
+                android:backgroundTint="@color/white"
+                android:paddingHorizontal="24dp"
+                android:paddingTop="24dp"
+                android:paddingBottom="40dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/v_indicator_switch">
+
+                <TextView
+                    android:id="@+id/tv_register_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/space_grotesk_bold"
+                    android:text="@string/create_your_account"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_register_label_desc"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/space_grotesk_regular"
+                    android:text="@string/make_sure_your_account_keep_secure"
+                    android:textColor="@color/text_hint"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_register_label" />
+
+                <TextView
+                    android:id="@+id/tv_username_register_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/space_grotesk_bold"
+                    android:text="@string/username"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_register_label_desc" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/ed_register_name"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/shape_edittext_outlined"
+                    android:fontFamily="@font/space_grotesk_regular"
+                    android:hint="@string/username_hint"
+                    android:inputType="textPersonName"
+                    android:imeOptions="actionDone"
+                    android:paddingHorizontal="16dp"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_username_register_label" />
+
+                <TextView
+                    android:id="@+id/tv_email_register_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/space_grotesk_bold"
+                    android:text="@string/email_address"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ed_register_name" />
+
+                <com.nalldev.asry.util.EmailEditText
+                    android:id="@+id/ed_register_email"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/shape_edittext_outlined"
+                    android:fontFamily="@font/space_grotesk_regular"
+                    android:imeOptions="actionDone"
+                    android:paddingHorizontal="16dp"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_email_register_label" />
+
+                <TextView
+                    android:id="@+id/tv_password_register_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/space_grotesk_bold"
+                    android:text="@string/password"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ed_register_email" />
+
+                <com.nalldev.asry.util.PasswordEditText
+                    android:id="@+id/ed_register_password"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/shape_edittext_outlined"
+                    android:fontFamily="@font/space_grotesk_regular"
+                    android:imeOptions="actionDone"
+                    android:paddingHorizontal="16dp"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_password_register_label" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_register"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="64dp"
+                    android:enabled="false"
+                    android:fontFamily="@font/space_grotesk_bold"
+                    android:text="@string/register"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    app:backgroundTint="@color/button_disable"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ed_register_password" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.motion.widget.MotionLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <com.nalldev.asry.util.CharacterLoadingView
+        android:id="@+id/loading_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

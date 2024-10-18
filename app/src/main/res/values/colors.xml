@@ -10,4 +10,6 @@
     <color name="text_hint">#9EA1AE</color>
 
     <color name="stroke_color">#F3F4F9</color>
+    <color name="background_loading">#3D090D20</color>
+    <color name="button_disable">#909CFF</color>
 </resources>

@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Asry</string>
+    <string name="title_activity_story_maps">StoryMapsActivity</string>
+
+    <string name="error_code_400">Oops! Ada yang salah. Periksa input Anda dan coba lagi.</string>
+    <string name="error_code_401">Sesi Anda telah berakhir. Silakan masuk kembali.</string>
+    <string name="error_code_403">Maaf, Anda tidak memiliki izin untuk mengakses sumber ini.</string>
+    <string name="error_code_404">Kami tidak dapat menemukan apa yang Anda cari.</string>
+    <string name="error_code_408">Permintaan waktu habis. Silakan coba lagi.</string>
+    <string name="error_code_429">Anda terlalu cepat mengirim permintaan. Mohon tunggu sebentar.</string>
+    <string name="error_code_500">Kami sedang mengalami masalah. Silakan coba lagi nanti.</string>
+    <string name="error_code_default">Terjadi kesalahan tak terduga. Silakan coba lagi.</string>
+    <string name="no_internet_connection">Tidak ada koneksi internet. Periksa pengaturan jaringan Anda.</string>
+    <string name="hello_there">Halo, di sana</string>
+    <string name="welcome">Selamat datang</string>
+    <string name="login">Masuk</string>
+    <string name="register">Daftar</string>
+    <string name="email_hint">Email unik Anda…</string>
+    <string name="password_hint">Password terbaik Anda…</string>
+    <string name="invalid_email_msg">Sepertinya format email Anda salah</string>
+    <string name="min_character_msg">Minimal harus 8 karakter</string>
+    <string name="login_to_your_account">Masuk ke Akun Anda</string>
+    <string name="make_sure_that_you_already_have_an_account">Pastikan Anda sudah memiliki akun</string>
+    <string name="email_address">Alamat Email</string>
+    <string name="password">Kata Sandi</string>
+    <string name="create_your_account">Buat Akun Anda</string>
+    <string name="make_sure_your_account_keep_secure">Pastikan akun Anda tetap aman</string>
+    <string name="username">Nama Pengguna</string>
+    <string name="username_hint">Nama pengguna terbaik Anda…</string>
+    <string name="register_success_msg">Hebat, Anda berhasil terdaftar</string>
+    <string name="login_success_msg">Selamat datang di Arsy</string>
+</resources>

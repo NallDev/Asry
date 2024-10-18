@@ -3,7 +3,7 @@ package com.nalldev.asry.presentation.ui.splash
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.nalldev.asry.domain.usecases.CheckUserSessionUseCase
+import com.nalldev.asry.domain.usecases.splash.CheckUserSessionUseCase
 import com.nalldev.asry.util.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers

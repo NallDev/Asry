@@ -27,5 +27,6 @@
     <string name="make_sure_your_account_keep_secure">Make sure your account keep secure</string>
     <string name="username">Username</string>
     <string name="username_hint">Your great username…</string>
-
+    <string name="register_success_msg">Great, you are registered now</string>
+    <string name="login_success_msg">Welcome to Arsy</string>
 </resources>
