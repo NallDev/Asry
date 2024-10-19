@@ -3,7 +3,7 @@ package com.nalldev.asry.presentation.ui.splash
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.nalldev.asry.domain.usecases.splash.CheckUserSessionUseCase
+import com.nalldev.asry.domain.usecases.user_session.UserSessionUseCases
 import com.nalldev.asry.util.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
-    private val checkUserSessionUseCase: CheckUserSessionUseCase
+    private val userSessionUseCases: UserSessionUseCases
 ) : ViewModel() {
 
     private val _motionProgress : MutableLiveData<Float> = MutableLiveData(0.0f)
@@ -25,16 +25,14 @@ class SplashViewModel @Inject constructor(
     private val disposables = CompositeDisposable()
 
     fun checkUserSession() {
-        val disposable = checkUserSessionUseCase()
+        val disposable = userSessionUseCases.getUserSession()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ hasSession ->
-                if (hasSession) {
-                    _navigationEvent.postValue(NavigationDestination.MAIN_ACTIVITY)
-                } else {
-                    _navigationEvent.postValue(NavigationDestination.AUTH_ACTIVITY)
-                }
-            }, { _ ->
+            .subscribe({
+                _navigationEvent.postValue(NavigationDestination.MAIN_ACTIVITY)
+            }, {
+                _navigationEvent.postValue(NavigationDestination.AUTH_ACTIVITY)
+            }, {
                 _navigationEvent.postValue(NavigationDestination.AUTH_ACTIVITY)
             })
 

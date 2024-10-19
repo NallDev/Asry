@@ -28,5 +28,6 @@
     <string name="username">Nama Pengguna</string>
     <string name="username_hint">Nama pengguna terbaik Anda…</string>
     <string name="register_success_msg">Hebat, Anda berhasil terdaftar</string>
+    <string name="put_session_error_msg">Maaf, sesi Anda mengalami kesalahan</string>
     <string name="login_success_msg">Selamat datang di Arsy</string>
 </resources>

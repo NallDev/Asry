@@ -1,5 +1,6 @@
 package com.nalldev.asry.presentation.ui.auth
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.addCallback
@@ -13,6 +14,7 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import com.nalldev.asry.R
 import com.nalldev.asry.databinding.ActivityAuthBinding
+import com.nalldev.asry.presentation.ui.home.MainActivity
 import com.nalldev.asry.util.CommonHelper
 import com.nalldev.asry.util.UIState
 import com.nalldev.asry.util.clearAllFocus
@@ -37,6 +39,8 @@ class AuthActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        CommonHelper.useLightTheme(this)
 
         initObserver()
         initListener()
@@ -93,6 +97,11 @@ class AuthActivity : AppCompatActivity() {
                 }
                 clearInput()
             }
+            if (navigateState == AuthViewModel.NavigateState.MAIN) {
+                val intent = Intent(this@AuthActivity, MainActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+            }
         }
 
         toastEvent.observe(this@AuthActivity) { message ->
@@ -110,30 +119,30 @@ class AuthActivity : AppCompatActivity() {
         }
 
         tvLogin.setOnClickListener {
-            viewModel.changeTransitionState(AuthViewModel.TransitionState.START)
+            viewModel.setTransitionState(AuthViewModel.TransitionState.START)
             clearInput()
         }
 
         tvRegister.setOnClickListener {
-            viewModel.changeTransitionState(AuthViewModel.TransitionState.END)
+            viewModel.setTransitionState(AuthViewModel.TransitionState.END)
             clearInput()
         }
 
         binding.edRegisterName.doOnTextChanged { text, _, _, _ ->
-            viewModel.changeRegisterName(text.toString())
+            viewModel.setRegisterName(text.toString())
         }
         binding.edRegisterEmail.doOnTextChanged { text, _, _, _ ->
-            viewModel.changeRegisterEmail(text.toString())
+            viewModel.setRegisterEmail(text.toString())
         }
         binding.edRegisterPassword.doOnTextChanged { text, _, _, _ ->
-            viewModel.changeRegisterPassword(text.toString())
+            viewModel.setRegisterPassword(text.toString())
         }
 
         binding.edLoginEmail.doOnTextChanged { text, _, _, _ ->
-            viewModel.changeLoginEmail(text.toString())
+            viewModel.setLoginEmail(text.toString())
         }
         binding.edLoginPassword.doOnTextChanged { text, _, _, _ ->
-            viewModel.changeLoginPassword(text.toString())
+            viewModel.setLoginPassword(text.toString())
         }
 
         binding.btnRegister.setOnClickListener {
@@ -176,6 +185,6 @@ class AuthActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        viewModel.storeMotionProgress(binding.motionLayout.progress)
+        viewModel.putMotionProgress(binding.motionLayout.progress)
     }
 }

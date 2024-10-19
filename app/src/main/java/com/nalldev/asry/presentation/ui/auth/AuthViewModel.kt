@@ -9,7 +9,9 @@ import com.nalldev.asry.domain.models.LoginRequestModel
 import com.nalldev.asry.domain.models.LoginResponseModel
 import com.nalldev.asry.domain.models.RegisterRequestModel
 import com.nalldev.asry.domain.models.RegisterResponseModel
+import com.nalldev.asry.domain.models.UserModel
 import com.nalldev.asry.domain.usecases.auth.AuthUseCases
+import com.nalldev.asry.domain.usecases.user_session.UserSessionUseCases
 import com.nalldev.asry.util.CommonHelper
 import com.nalldev.asry.util.SingleLiveEvent
 import com.nalldev.asry.util.UIState
@@ -24,6 +26,7 @@ import javax.inject.Inject
 @HiltViewModel
 class AuthViewModel @Inject constructor(
     private val authUseCases: AuthUseCases,
+    private val userSessionUseCases: UserSessionUseCases,
     @ApplicationContext val context: Context
 ) : ViewModel() {
 
@@ -124,8 +127,8 @@ class AuthViewModel @Inject constructor(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ data ->
+                putUserSession(data.userModel)
                 _loginResult.postValue(UIState.Success(data))
-                _navigateState.postValue(NavigateState.MAIN)
                 _toastEvent.postValue(context.getString(R.string.login_success_msg))
             }, { throwable ->
                 val message = CommonHelper.getErrorMessage(throwable, context)
@@ -136,31 +139,44 @@ class AuthViewModel @Inject constructor(
         disposables.add(disposable)
     }
 
-    fun storeMotionProgress(progress: Float) {
+    private fun putUserSession(userModel: UserModel) {
+        val disposable = userSessionUseCases.putUserSession(userModel)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                _navigateState.postValue(NavigateState.MAIN)
+            }, {
+                _toastEvent.postValue(context.getString(R.string.put_session_error_msg))
+            })
+
+        disposables.add(disposable)
+    }
+
+    fun putMotionProgress(progress: Float) {
         _motionProgress.postValue(progress)
     }
 
-    fun changeTransitionState(state: TransitionState) {
+    fun setTransitionState(state: TransitionState) {
         _transitionState.postValue(state)
     }
 
-    fun changeRegisterName(text: String) {
+    fun setRegisterName(text: String) {
         registerNameSubject.onNext(text)
     }
 
-    fun changeRegisterEmail(text: String) {
+    fun setRegisterEmail(text: String) {
         registerEmailSubject.onNext(text)
     }
 
-    fun changeRegisterPassword(text: String) {
+    fun setRegisterPassword(text: String) {
         registerPasswordSubject.onNext(text)
     }
 
-    fun changeLoginEmail(text: String) {
+    fun setLoginEmail(text: String) {
         loginEmailSubject.onNext(text)
     }
 
-    fun changeLoginPassword(text: String) {
+    fun setLoginPassword(text: String) {
         loginPasswordSubject.onNext(text)
     }
 
