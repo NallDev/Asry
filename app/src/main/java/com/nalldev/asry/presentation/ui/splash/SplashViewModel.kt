@@ -47,4 +47,9 @@ class SplashViewModel @Inject constructor(
         MAIN_ACTIVITY,
         AUTH_ACTIVITY
     }
+
+    override fun onCleared() {
+        super.onCleared()
+        disposables.clear()
+    }
 }

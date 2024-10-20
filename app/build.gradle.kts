@@ -42,9 +42,13 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+        freeCompilerArgs.plus("-Xopt-in=kotlin.RequiresOptIn")
     }
     buildFeatures {
         viewBinding = true
+    }
+    ksp {
+        arg("room.schemaLocation", "$projectDir/schemas")
     }
 }
 
@@ -64,7 +68,8 @@ dependencies {
 
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
-    implementation(libs.androidx.activity)
+    implementation(libs.androidx.room.rxjava3)
+    implementation(libs.androidx.room.paging)
     ksp(libs.androidx.room.compiler)
 
     implementation(libs.hilt.android)
@@ -77,6 +82,8 @@ dependencies {
 
     implementation(libs.androidx.paging.runtime.ktx)
     implementation(libs.androidx.paging.rxjava3)
+
+    implementation(libs.androidx.swiperefreshlayout)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

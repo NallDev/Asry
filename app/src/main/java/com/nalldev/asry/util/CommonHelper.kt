@@ -6,6 +6,7 @@ import android.os.Build
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatDelegate
 import com.nalldev.asry.R
+import org.json.JSONObject
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -19,8 +20,27 @@ object CommonHelper {
     fun getErrorMessage(throwable: Throwable, context: Context): String {
         return when (throwable) {
             is IOException -> context.getString(R.string.no_internet_connection)
-            is HttpException -> RemoteHelper.remoteErrorMessage(context, throwable.code())
+            is HttpException -> {
+                val errorMessage = parseErrorBody(throwable)
+                if (!errorMessage.isNullOrBlank()) {
+                    errorMessage
+                } else {
+                    RemoteHelper.remoteErrorMessage(context, throwable.code())
+                }
+            }
             else -> context.getString(R.string.error_code_default)
+        }
+    }
+
+    private fun parseErrorBody(httpException: HttpException): String? {
+        return try {
+            val errorJsonString = httpException.response()?.errorBody()?.string()?.let {
+                JSONObject(it)
+            }
+
+            errorJsonString?.getString("message")
+        } catch (_: Exception) {
+            null
         }
     }
 

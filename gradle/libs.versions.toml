@@ -22,12 +22,15 @@ coil = "2.6.0"
 ksp = "1.9.24-1.0.20"
 rxandroid = "3.0.2"
 rxjava = "3.1.9"
-activity = "1.9.2"
+swiperefreshlayout = "1.1.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-paging-runtime-ktx = { module = "androidx.paging:paging-runtime-ktx", version.ref = "pagingRuntimeKtx" }
 androidx-paging-rxjava3 = { module = "androidx.paging:paging-rxjava3", version.ref = "pagingRuntimeKtx" }
+androidx-room-paging = { module = "androidx.room:room-paging", version.ref = "room" }
+androidx-room-rxjava3 = { module = "androidx.room:room-rxjava3", version.ref = "room" }
+androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swiperefreshlayout" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hiltAndroid" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -49,7 +52,6 @@ androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref =
 coil = { module = "io.coil-kt:coil", version.ref = "coil" }
 rxandroid = { module = "io.reactivex.rxjava3:rxandroid", version.ref = "rxandroid" }
 rxjava = { module = "io.reactivex.rxjava3:rxjava", version.ref = "rxjava" }
-androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

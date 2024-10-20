@@ -1,7 +1,7 @@
 package com.nalldev.asry.di
 
-import com.nalldev.asry.data.datasource.network.NetworkDataSource
 import com.nalldev.asry.data.repositories.AuthRepositoryImpl
+import com.nalldev.asry.domain.datasource.NetworkDataSource
 import com.nalldev.asry.domain.repositories.AuthRepository
 import dagger.Module
 import dagger.Provides

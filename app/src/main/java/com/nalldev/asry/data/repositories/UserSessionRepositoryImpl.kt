@@ -1,6 +1,6 @@
 package com.nalldev.asry.data.repositories
 
-import com.nalldev.asry.data.datasource.preference.PreferencesDataSource
+import com.nalldev.asry.domain.datasource.PreferencesDataSource
 import com.nalldev.asry.domain.models.UserModel
 import com.nalldev.asry.domain.repositories.UserSessionRepository
 import io.reactivex.rxjava3.core.Completable

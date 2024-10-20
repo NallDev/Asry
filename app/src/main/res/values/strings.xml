@@ -29,5 +29,9 @@
     <string name="username_hint">Your great username…</string>
     <string name="register_success_msg">Great, you are registered now</string>
     <string name="put_session_error_msg">Sorry, your session has an error</string>
+    <string name="remove_session_error_msg">Wait, your session has an error</string>
     <string name="login_success_msg">Welcome to Arsy</string>
+    <string name="current_language">Current Language</string>
+    <string name="english">English</string>
+    <string name="no_story_msg">Unfortunately there are no stories today</string>
 </resources>

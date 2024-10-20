@@ -29,5 +29,9 @@
     <string name="username_hint">Nama pengguna terbaik Anda…</string>
     <string name="register_success_msg">Hebat, Anda berhasil terdaftar</string>
     <string name="put_session_error_msg">Maaf, sesi Anda mengalami kesalahan</string>
+    <string name="remove_session_error_msg">Tunggu, sesi Anda mengalami kesalahan</string>
     <string name="login_success_msg">Selamat datang di Arsy</string>
+    <string name="current_language">Bahasa saat ini</string>
+    <string name="english">Inggris</string>
+    <string name="no_story_msg">Sayangnya tidak ada cerita hari ini</string>
 </resources>

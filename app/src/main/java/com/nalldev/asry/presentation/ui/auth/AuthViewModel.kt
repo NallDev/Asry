@@ -187,4 +187,9 @@ class AuthViewModel @Inject constructor(
     enum class NavigateState {
         LOGIN, MAIN
     }
+
+    override fun onCleared() {
+        super.onCleared()
+        disposables.clear()
+    }
 }

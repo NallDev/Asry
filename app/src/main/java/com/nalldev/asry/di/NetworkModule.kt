@@ -1,6 +1,8 @@
 package com.nalldev.asry.di
 
 import com.nalldev.asry.data.datasource.network.api.ApiService
+import com.nalldev.asry.data.datasource.network.api.AuthInterceptor
+import com.nalldev.asry.domain.datasource.PreferencesDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,10 +23,21 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient() = OkHttpClient.Builder()
+    fun provideAuthInterceptor(
+        preferencesDataSource: PreferencesDataSource
+    ): AuthInterceptor {
+        return AuthInterceptor(preferencesDataSource)
+    }
+
+    @Provides
+    @Singleton
+    fun provideOkHttpClient(
+        authInterceptor: AuthInterceptor
+    ) = OkHttpClient.Builder()
         .addInterceptor(HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         })
+        .addInterceptor(authInterceptor)
         .build()
 
     @Provides

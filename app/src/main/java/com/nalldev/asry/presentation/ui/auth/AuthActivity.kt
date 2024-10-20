@@ -156,7 +156,7 @@ class AuthActivity : AppCompatActivity() {
     private fun isFormRegisterValid(isValid : Boolean) {
         binding.btnRegister.isEnabled = isValid
         binding.btnRegister.backgroundTintList = if (isValid) {
-            ContextCompat.getColorStateList(this@AuthActivity, R.color.colorPrimary)
+            ContextCompat.getColorStateList(this@AuthActivity, R.color.color_primary)
         } else {
             ContextCompat.getColorStateList(this@AuthActivity, R.color.button_disable)
         }
@@ -165,7 +165,7 @@ class AuthActivity : AppCompatActivity() {
     private fun isFormLoginValid(isValid : Boolean) {
         binding.btnLogin.isEnabled = isValid
         binding.btnLogin.backgroundTintList = if (isValid) {
-            ContextCompat.getColorStateList(this@AuthActivity, R.color.colorPrimary)
+            ContextCompat.getColorStateList(this@AuthActivity, R.color.color_primary)
         } else {
             ContextCompat.getColorStateList(this@AuthActivity, R.color.button_disable)
         }

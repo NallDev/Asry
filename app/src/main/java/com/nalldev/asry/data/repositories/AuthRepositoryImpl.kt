@@ -1,6 +1,6 @@
 package com.nalldev.asry.data.repositories
 
-import com.nalldev.asry.data.datasource.network.NetworkDataSource
+import com.nalldev.asry.domain.datasource.NetworkDataSource
 import com.nalldev.asry.domain.models.LoginRequestModel
 import com.nalldev.asry.domain.models.LoginResponseModel
 import com.nalldev.asry.domain.models.RegisterRequestModel
