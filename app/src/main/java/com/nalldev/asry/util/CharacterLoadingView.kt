@@ -39,7 +39,7 @@ class CharacterLoadingView @JvmOverloads constructor(
     }
 
     private val characterPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = context.getColor(R.color.colorPrimary)
+        color = context.getColor(R.color.color_primary)
         textSize = 100f
         textAlign = Paint.Align.CENTER
         typeface = ResourcesCompat.getFont(context, R.font.space_grotesk_bold)

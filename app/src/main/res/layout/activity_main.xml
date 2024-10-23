@@ -117,6 +117,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -126,7 +127,7 @@
             android:id="@+id/rv_story"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="invisible"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/view_story" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
@@ -145,36 +146,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:shapeAppearanceOverlay="@style/ShapeCircular" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/view_story_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/header"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-        <ImageView
-            android:id="@+id/iv_no_story"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
-            android:src="@drawable/ic_no_item"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
-
-        <TextView
-            android:id="@+id/tv_no_story"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/no_story_msg"
-            android:textAlignment="center"
-            android:textSize="12sp"
-            android:fontFamily="@font/space_grotesk_medium"
-            android:textColor="@color/color_primary"
-            app:layout_constraintTop_toBottomOf="@id/iv_no_story"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,6 +2,7 @@ package com.nalldev.asry.presentation.ui.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -10,6 +11,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.nalldev.asry.R
 import com.nalldev.asry.databinding.ActivityMainBinding
+import com.nalldev.asry.presentation.adapter.LoadingStateAdapter
+import com.nalldev.asry.presentation.adapter.StoryAdapter
 import com.nalldev.asry.presentation.ui.auth.AuthActivity
 import com.nalldev.asry.presentation.ui.story_maps.StoryMapsActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,22 +26,49 @@ class MainActivity : AppCompatActivity() {
 
     private val viewModel by viewModels<MainViewModel>()
 
+    private lateinit var storyAdapter : StoryAdapter
+
+    private lateinit var loadingAdapter : LoadingStateAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        initObserver()
         initView()
+        initObserver()
         initListener()
     }
 
+    private fun initView() = with(binding) {
+        storyAdapter = StoryAdapter {}
+        loadingAdapter = LoadingStateAdapter {
+            storyAdapter.retry()
+        }
+        storyAdapter.withLoadStateFooter(footer = loadingAdapter)
+        binding.rvStory.adapter = storyAdapter
+    }
+
     private fun initObserver() = with(viewModel) {
+        stories.observe(this@MainActivity) { stories ->
+            binding.swipeRefresh.isRefreshing = false
+            storyAdapter.submitData(lifecycle, stories)
+        }
+
+        reloadStories.observe(this@MainActivity) { reload ->
+            if (reload) {
+                binding.rvStory.post {
+                    binding.rvStory.scrollToPosition(0)
+                }
+                binding.swipeRefresh.isRefreshing = true
+                storyAdapter.refresh()
+            }
+        }
 
         navigateState.observe(this@MainActivity) { navigateState ->
             if (navigateState == MainViewModel.NavigateState.AUTH) {
@@ -51,12 +81,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun initView() = with(binding) {
-
-    }
-
     private fun initListener() = with(binding) {
-
         actionMap.setOnClickListener {
             navigateToMap()
         }
@@ -65,6 +90,14 @@ class MainActivity : AppCompatActivity() {
             viewModel.doLogOut()
         }
 
+        actionLanguage.setOnClickListener {
+            navigateToLocaleSetting()
+        }
+
+        binding.swipeRefresh.setOnRefreshListener {
+            viewModel.setReloadStories(true)
+            binding.swipeRefresh.isRefreshing = false
+        }
     }
 
     private fun navigateToAuth() {
@@ -76,5 +109,9 @@ class MainActivity : AppCompatActivity() {
     private fun navigateToMap() {
         val intent = Intent(this@MainActivity, StoryMapsActivity::class.java)
         startActivity(intent)
+    }
+
+    private fun navigateToLocaleSetting() {
+        startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
     }
 }

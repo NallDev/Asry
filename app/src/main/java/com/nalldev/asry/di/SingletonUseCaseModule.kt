@@ -8,7 +8,6 @@ import com.nalldev.asry.domain.usecases.user_session.UserSessionUseCases
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.scopes.ViewModelScoped
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 

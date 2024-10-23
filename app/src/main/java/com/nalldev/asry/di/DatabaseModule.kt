@@ -2,8 +2,9 @@ package com.nalldev.asry.di
 
 import android.content.Context
 import androidx.room.Room
-import com.nalldev.asry.data.datasource.local.StoryDao
-import com.nalldev.asry.data.datasource.local.StoryDatabase
+import com.nalldev.asry.data.datasource.local.dao.RemoteKeysDao
+import com.nalldev.asry.data.datasource.local.dao.StoryDao
+import com.nalldev.asry.data.datasource.local.db.StoryDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,5 +29,10 @@ object DatabaseModule {
     @Provides
     fun provideStoryDao(storyDatabase: StoryDatabase): StoryDao {
         return storyDatabase.storyDao()
+    }
+
+    @Provides
+    fun provideRemoteKeysDao(storyDatabase: StoryDatabase): RemoteKeysDao {
+        return storyDatabase.remoteKeyDao()
     }
 }

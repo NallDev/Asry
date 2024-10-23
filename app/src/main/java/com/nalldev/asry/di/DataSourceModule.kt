@@ -3,7 +3,8 @@ package com.nalldev.asry.di
 import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.nalldev.asry.data.datasource.local.LocalDataSourceImpl
-import com.nalldev.asry.data.datasource.local.StoryDao
+import com.nalldev.asry.data.datasource.local.dao.RemoteKeysDao
+import com.nalldev.asry.data.datasource.local.dao.StoryDao
 import com.nalldev.asry.data.datasource.network.NetworkDataSourceImpl
 import com.nalldev.asry.data.datasource.network.api.ApiService
 import com.nalldev.asry.data.datasource.preference.PreferencesDataSourceImpl
@@ -25,7 +26,7 @@ object DataSourceModule {
 
     @Provides
     @Singleton
-    fun provideLocalDataSource(storyDao: StoryDao): LocalDataSource = LocalDataSourceImpl(storyDao)
+    fun provideLocalDataSource(storyDao: StoryDao, remoteKeysDao: RemoteKeysDao): LocalDataSource = LocalDataSourceImpl(storyDao, remoteKeysDao)
 
     @Provides
     @Singleton

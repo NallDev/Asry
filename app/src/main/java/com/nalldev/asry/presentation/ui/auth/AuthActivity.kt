@@ -99,8 +99,8 @@ class AuthActivity : AppCompatActivity() {
             }
             if (navigateState == AuthViewModel.NavigateState.MAIN) {
                 val intent = Intent(this@AuthActivity, MainActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
+                finish()
             }
         }
 
@@ -149,6 +149,8 @@ class AuthActivity : AppCompatActivity() {
             viewModel.doUserRegister()
         }
         binding.btnLogin.setOnClickListener {
+            hideKeyboard()
+            clearAllFocus()
             viewModel.doUserLogin()
         }
     }

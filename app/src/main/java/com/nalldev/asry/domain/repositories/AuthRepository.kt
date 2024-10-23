@@ -4,8 +4,6 @@ import com.nalldev.asry.domain.models.LoginRequestModel
 import com.nalldev.asry.domain.models.LoginResponseModel
 import com.nalldev.asry.domain.models.RegisterRequestModel
 import com.nalldev.asry.domain.models.RegisterResponseModel
-import com.nalldev.asry.domain.models.UserModel
-import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 
 interface AuthRepository {

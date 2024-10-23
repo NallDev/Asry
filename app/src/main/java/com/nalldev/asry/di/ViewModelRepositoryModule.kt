@@ -1,8 +1,12 @@
 package com.nalldev.asry.di
 
+import com.nalldev.asry.data.datasource.local.db.StoryDatabase
+import com.nalldev.asry.data.datasource.paging.StoryRemoteMediator
 import com.nalldev.asry.data.repositories.AuthRepositoryImpl
+import com.nalldev.asry.data.repositories.MainRepositoryImpl
 import com.nalldev.asry.domain.datasource.NetworkDataSource
 import com.nalldev.asry.domain.repositories.AuthRepository
+import com.nalldev.asry.domain.repositories.MainRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,4 +20,9 @@ object ViewModelRepositoryModule {
     @ViewModelScoped
     fun provideAuthRepository(networkDataSource: NetworkDataSource) : AuthRepository =
         AuthRepositoryImpl(networkDataSource)
+
+    @Provides
+    @ViewModelScoped
+    fun provideMainRepository(storyDatabase: StoryDatabase, remoteMediator: StoryRemoteMediator) : MainRepository =
+        MainRepositoryImpl(storyDatabase, remoteMediator)
 }
