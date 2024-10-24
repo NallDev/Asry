@@ -71,6 +71,7 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.rxjava3)
     implementation(libs.androidx.room.paging)
+    implementation(libs.androidx.activity)
     ksp(libs.androidx.room.compiler)
 
     implementation(libs.hilt.android)

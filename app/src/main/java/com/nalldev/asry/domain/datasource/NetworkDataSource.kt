@@ -10,5 +10,5 @@ import io.reactivex.rxjava3.core.Single
 interface NetworkDataSource {
     fun register(request: RegisterRequestEntity): Single<RegisterResponseEntity>
     fun login(request: LoginRequestEntity) : Single<LoginResponseEntity>
-    fun fetchStories(page: Int, size: Int, storyType: Int): Single<StoriesResponseEntity>
+    fun fetchStories(page: Int?, size: Int?, storyType: Int): Single<StoriesResponseEntity>
 }

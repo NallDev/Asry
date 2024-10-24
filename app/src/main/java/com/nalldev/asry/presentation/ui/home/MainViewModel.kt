@@ -4,16 +4,13 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.toLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
-import androidx.paging.cachedIn
 import androidx.paging.rxjava3.cachedIn
 import com.nalldev.asry.R
 import com.nalldev.asry.domain.models.StoryModel
 import com.nalldev.asry.domain.usecases.main.FetchAllStoriesUseCase
 import com.nalldev.asry.domain.usecases.user_session.UserSessionUseCases
-import com.nalldev.asry.util.CommonHelper
 import com.nalldev.asry.util.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -39,8 +36,8 @@ class MainViewModel @Inject constructor(
     private val _navigateState = SingleLiveEvent<NavigateState>()
     val navigateState: LiveData<NavigateState> = _navigateState
 
-    private val _reloadStories = SingleLiveEvent<Boolean>()
-    val reloadStories: LiveData<Boolean> = _reloadStories
+    private val _reloadStories = SingleLiveEvent<Nothing>()
+    val reloadStories: LiveData<Nothing> = _reloadStories
 
     private val _toastEvent = SingleLiveEvent<String>()
     val toastEvent: LiveData<String> = _toastEvent
@@ -49,12 +46,9 @@ class MainViewModel @Inject constructor(
 
     init {
         disposables.add(
-            storiesObservable.subscribe({ pagingData ->
+            storiesObservable.subscribe{ pagingData ->
                 _stories.postValue(pagingData)
-            }, { throwable ->
-                val message = CommonHelper.getErrorMessage(throwable, context)
-                _toastEvent.postValue(message)
-            })
+            }
         )
     }
 
@@ -71,8 +65,8 @@ class MainViewModel @Inject constructor(
         disposables.add(disposable)
     }
 
-    fun setReloadStories(reload: Boolean) {
-        _reloadStories.postValue(reload)
+    fun reloadStories() {
+        _reloadStories.call()
     }
 
     enum class NavigateState {

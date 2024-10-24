@@ -7,14 +7,19 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.util.Pair
 import com.nalldev.asry.R
 import com.nalldev.asry.databinding.ActivityMainBinding
+import com.nalldev.asry.databinding.ViewStoryBinding
+import com.nalldev.asry.domain.models.StoryModel
 import com.nalldev.asry.presentation.adapter.LoadingStateAdapter
 import com.nalldev.asry.presentation.adapter.StoryAdapter
 import com.nalldev.asry.presentation.ui.auth.AuthActivity
-import com.nalldev.asry.presentation.ui.story_maps.StoryMapsActivity
+import com.nalldev.asry.presentation.ui.detail.DetailStoryActivity
+import com.nalldev.asry.presentation.ui.story_maps.MapsStoryActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -29,6 +34,22 @@ class MainActivity : AppCompatActivity() {
     private lateinit var storyAdapter : StoryAdapter
 
     private lateinit var loadingAdapter : LoadingStateAdapter
+
+    private val storyAdapterListener = object : StoryAdapter.Listener{
+        override fun onItemClicked(storyData: StoryModel, view: ViewStoryBinding) {
+            val intent = Intent(this@MainActivity, DetailStoryActivity::class.java)
+            intent.putExtra(DetailStoryActivity.EXTRAS, storyData)
+
+            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                this@MainActivity,
+                Pair(view.ivProfile, view.ivProfile.transitionName),
+                Pair(view.tvItemName, view.tvItemName.transitionName),
+                Pair(view.ivItemPhoto, view.ivItemPhoto.transitionName)
+            )
+
+            startActivity(intent, options.toBundle())
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,12 +67,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initView() = with(binding) {
-        storyAdapter = StoryAdapter {}
+        storyAdapter = StoryAdapter(storyAdapterListener)
         loadingAdapter = LoadingStateAdapter {
             storyAdapter.retry()
         }
         storyAdapter.withLoadStateFooter(footer = loadingAdapter)
-        binding.rvStory.adapter = storyAdapter
+
+        rvStory.adapter = storyAdapter
     }
 
     private fun initObserver() = with(viewModel) {
@@ -60,14 +82,12 @@ class MainActivity : AppCompatActivity() {
             storyAdapter.submitData(lifecycle, stories)
         }
 
-        reloadStories.observe(this@MainActivity) { reload ->
-            if (reload) {
-                binding.rvStory.post {
-                    binding.rvStory.scrollToPosition(0)
-                }
-                binding.swipeRefresh.isRefreshing = true
-                storyAdapter.refresh()
+        reloadStories.observe(this@MainActivity) {
+            binding.rvStory.post {
+                binding.rvStory.scrollToPosition(0)
             }
+            binding.swipeRefresh.isRefreshing = true
+            storyAdapter.refresh()
         }
 
         navigateState.observe(this@MainActivity) { navigateState ->
@@ -95,8 +115,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.swipeRefresh.setOnRefreshListener {
-            viewModel.setReloadStories(true)
-            binding.swipeRefresh.isRefreshing = false
+            viewModel.reloadStories()
         }
     }
 
@@ -107,7 +126,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun navigateToMap() {
-        val intent = Intent(this@MainActivity, StoryMapsActivity::class.java)
+        val intent = Intent(this@MainActivity, MapsStoryActivity::class.java)
         startActivity(intent)
     }
 

@@ -7,6 +7,7 @@
     <color name="blue_300">#384DAA</color>
     <color name="color_primary_background">#E9EBFE</color>
 
+    <color name="danger">#FF5255</color>
     <color name="danger_background">#FAEAEE</color>
     <color name="color_secondary">#FE7474</color>
 

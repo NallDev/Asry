@@ -1,6 +1,7 @@
 package com.nalldev.asry.util
 
 import com.nalldev.asry.data.datasource.local.models.StoryEntity
+import com.nalldev.asry.data.datasource.network.models.ListStoryItem
 import com.nalldev.asry.data.datasource.network.models.LoginRequestEntity
 import com.nalldev.asry.data.datasource.network.models.LoginResponseEntity
 import com.nalldev.asry.data.datasource.network.models.RegisterRequestEntity
@@ -71,5 +72,19 @@ object Mapper {
             lat = entity.lat,
             lon = entity.lon
         )
+    }
+
+    fun storiesToDomain(listStoryItem: List<ListStoryItem>) : List<StoryModel> {
+        return listStoryItem.map { story ->
+            StoryModel(
+                id = story.id,
+                name = story.name,
+                description = story.description,
+                photoUrl = story.photoUrl,
+                createdAt = story.createdAt,
+                lat = story.lat,
+                lon = story.lon
+            )
+        }
     }
 }

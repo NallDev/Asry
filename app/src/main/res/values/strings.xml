@@ -34,4 +34,5 @@
     <string name="current_language">Current Language</string>
     <string name="english">English</string>
     <string name="retry">Retry</string>
+    <string name="story">Story</string>
 </resources>

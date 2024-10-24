@@ -5,22 +5,30 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import coil.ImageLoader
 import coil.load
 import com.nalldev.asry.databinding.ViewStoryBinding
 import com.nalldev.asry.domain.models.StoryModel
 
-class StoryAdapter(val onItemClick: ((StoryModel) -> Unit)) : PagingDataAdapter<StoryModel, StoryAdapter.ViewHolder>(this) {
+class StoryAdapter(val listener: Listener? = null) : PagingDataAdapter<StoryModel, StoryAdapter.ViewHolder>(this) {
 
     inner class ViewHolder(private val binding: ViewStoryBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(storyData : StoryModel) {
+            val id = storyData.id
+            val imageLoader = ImageLoader.Builder(binding.root.context).allowHardware(false).build()
+
+            binding.ivProfile.transitionName = "profileImage_$id"
+            binding.tvItemName.transitionName = "profileName_$id"
+            binding.ivItemPhoto.transitionName = "itemPhoto_$id"
+
             binding.tvItemName.text = storyData.name
             binding.tvItemDescription.text = storyData.description
-            binding.ivItemPhoto.load(storyData.photoUrl) {
+            binding.ivItemPhoto.load(storyData.photoUrl, imageLoader) {
                 crossfade(true)
             }
 
             binding.root.setOnClickListener {
-                onItemClick.invoke(storyData)
+                listener?.onItemClicked(storyData, binding)
             }
         }
     }
@@ -33,6 +41,10 @@ class StoryAdapter(val onItemClick: ((StoryModel) -> Unit)) : PagingDataAdapter<
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         getItem(holder.bindingAdapterPosition)?.let {
             holder.bind(it) }
+    }
+
+    interface Listener {
+        fun onItemClicked(storyData: StoryModel, view: ViewStoryBinding)
     }
 
     companion object : DiffUtil.ItemCallback<StoryModel>() {

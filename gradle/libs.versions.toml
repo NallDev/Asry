@@ -23,6 +23,7 @@ ksp = "1.9.24-1.0.20"
 rxandroid = "3.0.2"
 rxjava = "3.1.9"
 swiperefreshlayout = "1.1.0"
+activity = "1.9.3"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -53,6 +54,7 @@ androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref =
 coil = { module = "io.coil-kt:coil", version.ref = "coil" }
 rxandroid = { module = "io.reactivex.rxjava3:rxandroid", version.ref = "rxandroid" }
 rxjava = { module = "io.reactivex.rxjava3:rxjava", version.ref = "rxjava" }
+androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

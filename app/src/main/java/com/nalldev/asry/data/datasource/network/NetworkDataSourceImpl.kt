@@ -21,7 +21,7 @@ class NetworkDataSourceImpl @Inject constructor(
         return apiService.login(request)
     }
 
-    override fun fetchStories(page: Int, size: Int, storyType: Int): Single<StoriesResponseEntity> {
+    override fun fetchStories(page: Int?, size: Int?, storyType: Int): Single<StoriesResponseEntity> {
         return apiService.fetchStories(page, size, storyType)
     }
 }

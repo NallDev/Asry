@@ -24,8 +24,8 @@ interface ApiService {
 
     @GET("stories")
     fun fetchStories(
-        @Query("page") page: Int,
-        @Query("size") size: Int,
+        @Query("page") page: Int?,
+        @Query("size") size: Int?,
         @Query("location") storyType: Int
     ): Single<StoriesResponseEntity>
 }

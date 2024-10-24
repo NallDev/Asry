@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:elevation="16dp"
+        android:elevation="8dp"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.imageview.ShapeableImageView
@@ -81,28 +81,32 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.google.android.material.imageview.ShapeableImageView
+        <com.google.android.material.button.MaterialButton
+            style="@style/IconButton"
             android:id="@+id/action_map"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:background="@color/color_primary_background"
-            android:scaleType="centerInside"
-            android:src="@drawable/ic_map"
+            android:backgroundTint="@color/color_primary_background"
+            app:icon="@drawable/ic_map"
+            app:iconSize="24dp"
+            app:iconTint="@color/color_primary"
             app:layout_constraintEnd_toStartOf="@id/action_logout"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/ShapeRound12" />
 
-        <com.google.android.material.imageview.ShapeableImageView
+        <com.google.android.material.button.MaterialButton
+            style="@style/IconButton"
             android:id="@+id/action_logout"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
-            android:background="@color/danger_background"
-            android:scaleType="centerInside"
-            android:src="@drawable/ic_logout"
+            android:backgroundTint="@color/danger_background"
+            app:icon="@drawable/ic_logout"
+            app:iconTint="@color/danger"
+            app:iconSize="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/ShapeRound12" />

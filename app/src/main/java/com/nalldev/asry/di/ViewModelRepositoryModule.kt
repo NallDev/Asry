@@ -4,9 +4,11 @@ import com.nalldev.asry.data.datasource.local.db.StoryDatabase
 import com.nalldev.asry.data.datasource.paging.StoryRemoteMediator
 import com.nalldev.asry.data.repositories.AuthRepositoryImpl
 import com.nalldev.asry.data.repositories.MainRepositoryImpl
+import com.nalldev.asry.data.repositories.MapsRepositoryImpl
 import com.nalldev.asry.domain.datasource.NetworkDataSource
 import com.nalldev.asry.domain.repositories.AuthRepository
 import com.nalldev.asry.domain.repositories.MainRepository
+import com.nalldev.asry.domain.repositories.MapsRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,4 +27,9 @@ object ViewModelRepositoryModule {
     @ViewModelScoped
     fun provideMainRepository(storyDatabase: StoryDatabase, remoteMediator: StoryRemoteMediator) : MainRepository =
         MainRepositoryImpl(storyDatabase, remoteMediator)
+
+    @Provides
+    @ViewModelScoped
+    fun provideMapsRepository(networkDataSource: NetworkDataSource) : MapsRepository =
+        MapsRepositoryImpl(networkDataSource)
 }
