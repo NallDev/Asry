@@ -2,6 +2,8 @@ package com.nalldev.asry.util
 
 import android.app.UiModeManager
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.Matrix
 import android.os.Build
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatDelegate
@@ -56,5 +58,13 @@ object CommonHelper {
                 AppCompatDelegate.MODE_NIGHT_NO
             )
         }
+    }
+
+    fun rotateImage(source: Bitmap, angle: Float): Bitmap {
+        val matrix = Matrix()
+        matrix.postRotate(angle)
+        return Bitmap.createBitmap(
+            source, 0, 0, source.width, source.height, matrix, true
+        )
     }
 }

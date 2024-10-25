@@ -1,4 +1,4 @@
-package com.nalldev.asry.presentation.ui.story_maps
+package com.nalldev.asry.presentation.ui.maps_story
 
 import android.content.Context
 import androidx.lifecycle.LiveData

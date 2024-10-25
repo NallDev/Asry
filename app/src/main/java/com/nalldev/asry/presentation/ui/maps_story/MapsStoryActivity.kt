@@ -1,4 +1,4 @@
-package com.nalldev.asry.presentation.ui.story_maps
+package com.nalldev.asry.presentation.ui.maps_story
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

@@ -21,7 +21,7 @@
                 motion:layout_constraintBottom_toBottomOf="parent" />
         </Constraint>
 
-        <Constraint android:id="@id/iv_arsy">
+        <Constraint android:id="@id/iv_asry">
             <Layout
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -48,7 +48,7 @@
                 motion:layout_constraintBottom_toBottomOf="parent" />
         </Constraint>
 
-        <Constraint android:id="@id/iv_arsy"
+        <Constraint android:id="@id/iv_asry"
             motion:layout_constraintHorizontal_bias="0.0">
             <Layout
                 android:layout_width="0dp"

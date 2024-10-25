@@ -18,8 +18,9 @@ import com.nalldev.asry.domain.models.StoryModel
 import com.nalldev.asry.presentation.adapter.LoadingStateAdapter
 import com.nalldev.asry.presentation.adapter.StoryAdapter
 import com.nalldev.asry.presentation.ui.auth.AuthActivity
+import com.nalldev.asry.presentation.ui.camera.CameraActivity
 import com.nalldev.asry.presentation.ui.detail.DetailStoryActivity
-import com.nalldev.asry.presentation.ui.story_maps.MapsStoryActivity
+import com.nalldev.asry.presentation.ui.maps_story.MapsStoryActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -117,6 +118,10 @@ class MainActivity : AppCompatActivity() {
         binding.swipeRefresh.setOnRefreshListener {
             viewModel.reloadStories()
         }
+
+        binding.fabAddStory.setOnClickListener {
+            navigateToCamera()
+        }
     }
 
     private fun navigateToAuth() {
@@ -132,5 +137,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun navigateToLocaleSetting() {
         startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
+    }
+
+    private fun navigateToCamera() {
+        val intent = Intent(this@MainActivity, CameraActivity::class.java)
+        startActivity(intent)
     }
 }

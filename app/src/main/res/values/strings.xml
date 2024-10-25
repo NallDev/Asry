@@ -35,4 +35,12 @@
     <string name="english">English</string>
     <string name="retry">Retry</string>
     <string name="story">Story</string>
+    <string name="permission_denied_title">Ahhhhh</string>
+    <string name="permission_denied_description">This application needs your permission</string>
+    <string name="back">Back</string>
+    <string name="setting">Setting</string>
+    <string name="post">Post</string>
+    <string name="description_hint">I\'m so happy today....</string>
+    <string name="add_my_current_location">Add my current location</string>
+    <string name="the_send_button_will_be_active_when_the_application_has_got_your_location_keep_gps_active">*The send button will be active when the application has got your location, keep GPS active</string>
 </resources>
