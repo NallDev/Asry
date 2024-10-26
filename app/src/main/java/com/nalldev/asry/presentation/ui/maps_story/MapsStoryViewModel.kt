@@ -42,6 +42,8 @@ class MapsStoryViewModel @Inject constructor(
                 _toastEvent.postValue(message)
                 _stories.postValue(UIState.Error)
             })
+
+        disposables.add(disposable)
     }
 
     override fun onCleared() {

@@ -43,4 +43,5 @@
     <string name="description_hint">I\'m so happy today....</string>
     <string name="add_my_current_location">Add my current location</string>
     <string name="the_send_button_will_be_active_when_the_application_has_got_your_location_keep_gps_active">*The send button will be active when the application has got your location, keep GPS active</string>
+    <string name="convert_uri_fail_msg">Ohhh nooo, application can\'t process your image</string>
 </resources>

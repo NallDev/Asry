@@ -41,4 +41,7 @@
     <string name="setting">Pengaturan</string>
     <string name="post">Posting</string>
     <string name="description_hint">Saya sangat senang hari ini....</string>
+    <string name="add_my_current_location">Tambahkan lokasi saya saat ini</string>
+    <string name="the_send_button_will_be_active_when_the_application_has_got_your_location_keep_gps_active">*Tombol kirim akan aktif ketika aplikasi mendapatkan lokasi Anda, pastikan GPS tetap aktif</string>
+    <string name="convert_uri_fail_msg">Ohhh tidak, aplikasi tidak dapat memproses foto Anda</string>
 </resources>

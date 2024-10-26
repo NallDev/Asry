@@ -26,9 +26,9 @@ import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nalldev.asry.R
 import com.nalldev.asry.databinding.ActivityCameraBinding
+import com.nalldev.asry.presentation.ui.add_story.AddStoryActivity
 import com.nalldev.asry.util.createTempFile
 import com.nalldev.asry.util.getPackageInfo
-import java.io.File
 
 class CameraActivity : AppCompatActivity() {
 
@@ -74,12 +74,7 @@ class CameraActivity : AppCompatActivity() {
         pickMediaLauncher =
             registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
                 if (uri != null) {
-                    val flag = Intent.FLAG_GRANT_READ_URI_PERMISSION
-                    contentResolver.takePersistableUriPermission(uri, flag)
-
-
-                } else {
-
+                    navigateToAddStory(uri)
                 }
             }
     }
@@ -96,12 +91,36 @@ class CameraActivity : AppCompatActivity() {
         cameraSelector.observe(this@CameraActivity) {
             startCamera()
         }
+
+        rotation.observe(this@CameraActivity) { rotation ->
+            updateViewRotation(rotation)
+        }
+    }
+
+    private fun updateViewRotation(rotation: Int) {
+        when (rotation) {
+            Surface.ROTATION_0 -> {
+                binding.actionSwap.rotation = 0f
+                binding.actionGallery.rotation = 0f
+            }
+            Surface.ROTATION_90 -> {
+                binding.actionSwap.rotation = 90f
+                binding.actionGallery.rotation = 90f
+            }
+            Surface.ROTATION_180 -> {
+                binding.actionSwap.rotation = 180f
+                binding.actionGallery.rotation = 180f
+            }
+            Surface.ROTATION_270 -> {
+                binding.actionSwap.rotation = 2700f
+                binding.actionGallery.rotation = 270f
+            }
+        }
     }
 
     private fun initListener() = with(binding) {
         orientationEventListener = object : OrientationEventListener(this@CameraActivity) {
             override fun onOrientationChanged(orientation: Int) {
-                println("OEIWNROA asuuu : $orientation")
                 if (orientation == ORIENTATION_UNKNOWN) return
                 viewModel.updateRotation(orientation)
             }
@@ -146,13 +165,17 @@ class CameraActivity : AppCompatActivity() {
     }
 
     private fun takePhoto() {
-        val outputOptions = ImageCapture.OutputFileOptions.Builder(createTempFile()).build()
+        val metadata = ImageCapture.Metadata()
+        metadata.isReversedHorizontal = viewModel.cameraSelector.value == CameraSelector.DEFAULT_FRONT_CAMERA
+        val outputOptions = ImageCapture.OutputFileOptions.Builder(createTempFile()).setMetadata(metadata).build()
         viewModel.imageCapture?.takePicture(
             outputOptions,
             ContextCompat.getMainExecutor(this),
             object : ImageCapture.OnImageSavedCallback {
                 override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-
+                    outputFileResults.savedUri?.let { uri ->
+                        navigateToAddStory(uri)
+                    }
                 }
 
                 override fun onError(e: ImageCaptureException) {
@@ -188,6 +211,12 @@ class CameraActivity : AppCompatActivity() {
         }.create()
 
         alertDialog.show()
+    }
+
+    private fun navigateToAddStory(uri : Uri) {
+        val intent = Intent(this, AddStoryActivity::class.java)
+        intent.putExtra(AddStoryActivity.EXTRAS, uri.toString())
+        startActivity(intent)
     }
 
     private fun navigateToSetting() {

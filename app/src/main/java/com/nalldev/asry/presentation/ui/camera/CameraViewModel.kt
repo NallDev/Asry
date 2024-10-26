@@ -11,6 +11,9 @@ class CameraViewModel : ViewModel() {
     private val _cameraSelector = MutableLiveData(CameraSelector.DEFAULT_BACK_CAMERA)
     val cameraSelector: LiveData<CameraSelector> = _cameraSelector
 
+    private val _rotation : MutableLiveData<Int> = MutableLiveData()
+    val rotation : LiveData<Int> = _rotation
+
     var imageCapture: ImageCapture? = null
 
     init {
@@ -34,6 +37,7 @@ class CameraViewModel : ViewModel() {
             in 225 until 315 -> Surface.ROTATION_90
             else -> Surface.ROTATION_0
         }
+        _rotation.postValue(rotation)
         imageCapture?.targetRotation = rotation
     }
 }

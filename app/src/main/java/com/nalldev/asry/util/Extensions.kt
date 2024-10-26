@@ -2,13 +2,16 @@ package com.nalldev.asry.util
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.exifinterface.media.ExifInterface
 import java.io.File
 import java.util.Date
@@ -48,4 +51,14 @@ fun Bitmap.getRotatedBitmap(file: File): Bitmap {
         ExifInterface.ORIENTATION_NORMAL -> this
         else -> this
     }
+}
+
+fun Context.addPersistenceUri(uri : Uri, callback : ((Uri) -> Unit)? = null) {
+    val addFlag = Intent.FLAG_GRANT_READ_URI_PERMISSION
+    contentResolver.takePersistableUriPermission(uri, addFlag)
+    callback?.invoke(uri)
+}
+
+fun Context.showToast(message : String) {
+    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 }
