@@ -18,8 +18,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
-    @Provides
-    fun provideBaseUrl() = "https://story-api.dicoding.dev/v1/"
+    private const val BASE_URL = "https://story-api.dicoding.dev/v1/"
 
     @Provides
     @Singleton
@@ -42,9 +41,9 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(client: OkHttpClient, baseUrl: String): Retrofit =
+    fun provideRetrofit(client: OkHttpClient): Retrofit =
         Retrofit.Builder()
-            .baseUrl(baseUrl)
+            .baseUrl(BASE_URL)
             .client(client)
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())

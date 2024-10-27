@@ -46,7 +46,7 @@ class MainViewModel @Inject constructor(
             .subscribe({
                 _navigateState.postValue(NavigateState.AUTH)
             }, {
-                _toastEvent.postValue(context.getString(R.string.put_session_error_msg))
+                _toastEvent.postValue(context.getString(R.string.remove_session_error_msg))
             })
 
         disposables.add(disposable)

@@ -2,7 +2,6 @@ package com.nalldev.asry.presentation.ui.add_story
 
 import android.content.Context
 import android.net.Uri
-import androidx.core.net.toFile
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -112,7 +111,7 @@ class AddStoryViewModel @Inject constructor(
             val description = descriptionSubject.value.toString()
             val latitude = coordinateSubject.value?.value?.latitude
             val longitude = coordinateSubject.value?.value?.longitude
-            val photo = uri.toFile().reduceFileImage()
+            val photo = CommonHelper.uriToFile(uri, context).reduceFileImage()
 
             val request = AddStoryRequestModel(
                 description = description,
