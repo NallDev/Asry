@@ -2,10 +2,12 @@ package com.nalldev.asry.di
 
 import com.nalldev.asry.data.datasource.local.db.StoryDatabase
 import com.nalldev.asry.data.datasource.paging.StoryRemoteMediator
+import com.nalldev.asry.data.repositories.AddStoryRepositoryImpl
 import com.nalldev.asry.data.repositories.AuthRepositoryImpl
 import com.nalldev.asry.data.repositories.MainRepositoryImpl
 import com.nalldev.asry.data.repositories.MapsRepositoryImpl
 import com.nalldev.asry.domain.datasource.NetworkDataSource
+import com.nalldev.asry.domain.repositories.AddStoryRepository
 import com.nalldev.asry.domain.repositories.AuthRepository
 import com.nalldev.asry.domain.repositories.MainRepository
 import com.nalldev.asry.domain.repositories.MapsRepository
@@ -32,4 +34,9 @@ object ViewModelRepositoryModule {
     @ViewModelScoped
     fun provideMapsRepository(networkDataSource: NetworkDataSource) : MapsRepository =
         MapsRepositoryImpl(networkDataSource)
+
+    @Provides
+    @ViewModelScoped
+    fun provideAddStoryRepository(networkDataSource: NetworkDataSource) : AddStoryRepository =
+        AddStoryRepositoryImpl(networkDataSource)
 }

@@ -1,5 +1,7 @@
 package com.nalldev.asry.data.repositories
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.toLiveData
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -9,7 +11,7 @@ import com.nalldev.asry.data.datasource.local.db.StoryDatabase
 import com.nalldev.asry.data.datasource.local.models.StoryEntity
 import com.nalldev.asry.data.datasource.paging.StoryRemoteMediator
 import com.nalldev.asry.domain.repositories.MainRepository
-import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.BackpressureStrategy
 import javax.inject.Inject
 
 class MainRepositoryImpl @Inject constructor(
@@ -17,7 +19,7 @@ class MainRepositoryImpl @Inject constructor(
     private val remoteMediator: StoryRemoteMediator
 ) : MainRepository {
 
-    override fun fetchStories(): Observable<PagingData<StoryEntity>> {
+    override fun fetchStories(): LiveData<PagingData<StoryEntity>> {
         @OptIn(ExperimentalPagingApi::class)
         return Pager(
             config = PagingConfig(
@@ -25,6 +27,6 @@ class MainRepositoryImpl @Inject constructor(
             ),
             remoteMediator = remoteMediator,
             pagingSourceFactory = { storyDatabase.storyDao().getStories() }
-        ).observable
+        ).observable.toFlowable(BackpressureStrategy.LATEST).toLiveData()
     }
 }

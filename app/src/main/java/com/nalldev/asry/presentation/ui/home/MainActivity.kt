@@ -11,6 +11,7 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.util.Pair
+import androidx.lifecycle.lifecycleScope
 import com.nalldev.asry.R
 import com.nalldev.asry.databinding.ActivityMainBinding
 import com.nalldev.asry.databinding.ViewStoryBinding
@@ -22,6 +23,8 @@ import com.nalldev.asry.presentation.ui.camera.CameraActivity
 import com.nalldev.asry.presentation.ui.detail.DetailStoryActivity
 import com.nalldev.asry.presentation.ui.maps_story.MapsStoryActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -32,11 +35,11 @@ class MainActivity : AppCompatActivity() {
 
     private val viewModel by viewModels<MainViewModel>()
 
-    private lateinit var storyAdapter : StoryAdapter
+    private lateinit var storyAdapter: StoryAdapter
 
-    private lateinit var loadingAdapter : LoadingStateAdapter
+    private lateinit var loadingAdapter: LoadingStateAdapter
 
-    private val storyAdapterListener = object : StoryAdapter.Listener{
+    private val storyAdapterListener = object : StoryAdapter.Listener {
         override fun onItemClicked(storyData: StoryModel, view: ViewStoryBinding) {
             val intent = Intent(this@MainActivity, DetailStoryActivity::class.java)
             intent.putExtra(DetailStoryActivity.EXTRAS, storyData)
@@ -45,6 +48,7 @@ class MainActivity : AppCompatActivity() {
                 this@MainActivity,
                 Pair(view.ivProfile, view.ivProfile.transitionName),
                 Pair(view.tvItemName, view.tvItemName.transitionName),
+                Pair(view.tvItemDescription, view.tvItemDescription.transitionName),
                 Pair(view.ivItemPhoto, view.ivItemPhoto.transitionName)
             )
 
@@ -78,15 +82,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initObserver() = with(viewModel) {
-        stories.observe(this@MainActivity) { stories ->
-            binding.swipeRefresh.isRefreshing = false
-            storyAdapter.submitData(lifecycle, stories)
+        stories.observe(this@MainActivity) { pagingData ->
+            viewModel.addPage()
+            lifecycleScope.launch {
+
+                storyAdapter.submitData(pagingData)
+
+                if (viewModel.page == 1) {
+                    delay(500)
+                    binding.rvStory.post {
+                        binding.rvStory.smoothScrollToPosition(0)
+                        binding.swipeRefresh.isRefreshing = false
+                    }
+                }
+            }
         }
 
         reloadStories.observe(this@MainActivity) {
-            binding.rvStory.post {
-                binding.rvStory.scrollToPosition(0)
-            }
             binding.swipeRefresh.isRefreshing = true
             storyAdapter.refresh()
         }

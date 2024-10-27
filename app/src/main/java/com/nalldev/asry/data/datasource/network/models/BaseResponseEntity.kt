@@ -2,7 +2,7 @@ package com.nalldev.asry.data.datasource.network.models
 
 import com.google.gson.annotations.SerializedName
 
-data class RegisterResponseEntity(
+data class BaseResponseEntity(
 
 	@field:SerializedName("error")
 	val error: Boolean,

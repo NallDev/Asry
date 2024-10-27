@@ -5,14 +5,20 @@ import com.nalldev.asry.data.datasource.network.models.ListStoryItem
 import com.nalldev.asry.data.datasource.network.models.LoginRequestEntity
 import com.nalldev.asry.data.datasource.network.models.LoginResponseEntity
 import com.nalldev.asry.data.datasource.network.models.RegisterRequestEntity
-import com.nalldev.asry.data.datasource.network.models.RegisterResponseEntity
+import com.nalldev.asry.data.datasource.network.models.BaseResponseEntity
 import com.nalldev.asry.data.datasource.network.models.StoriesResponseEntity
+import com.nalldev.asry.domain.models.AddStoryRequestModel
 import com.nalldev.asry.domain.models.LoginRequestModel
 import com.nalldev.asry.domain.models.LoginResponseModel
 import com.nalldev.asry.domain.models.RegisterRequestModel
-import com.nalldev.asry.domain.models.RegisterResponseModel
+import com.nalldev.asry.domain.models.BaseResponseModel
 import com.nalldev.asry.domain.models.StoryModel
 import com.nalldev.asry.domain.models.UserModel
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 
 object Mapper {
     fun registerToEntity(domain: RegisterRequestModel): RegisterRequestEntity {
@@ -23,8 +29,8 @@ object Mapper {
         )
     }
 
-    fun registerToDomain(entity: RegisterResponseEntity): RegisterResponseModel {
-        return RegisterResponseModel(
+    fun baseResponseToDomain(entity: BaseResponseEntity): BaseResponseModel {
+        return BaseResponseModel(
             isError = entity.error,
             message = entity.message
         )
@@ -86,5 +92,24 @@ object Mapper {
                 lon = story.lon
             )
         }
+    }
+
+    fun addStoryToEntity(request: AddStoryRequestModel): Pair<Map<String, RequestBody>, MultipartBody.Part> {
+        val dataMap = mutableMapOf<String, RequestBody>()
+
+        dataMap["description"] = request.description.toRequestBody("text/plain".toMediaTypeOrNull())
+
+        request.latitude?.let {
+            dataMap["lat"] = it.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+        }
+
+        request.longitude?.let {
+            dataMap["lon"] = it.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+        }
+
+        val photoRequestBody = request.photo.asRequestBody("image/jpeg".toMediaTypeOrNull())
+        val photoPart = MultipartBody.Part.createFormData("photo", request.photo.name, photoRequestBody)
+
+        return Pair(dataMap, photoPart)
     }
 }

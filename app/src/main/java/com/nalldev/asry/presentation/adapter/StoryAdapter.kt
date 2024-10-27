@@ -10,15 +10,18 @@ import coil.load
 import com.nalldev.asry.databinding.ViewStoryBinding
 import com.nalldev.asry.domain.models.StoryModel
 
-class StoryAdapter(val listener: Listener? = null) : PagingDataAdapter<StoryModel, StoryAdapter.ViewHolder>(this) {
+class StoryAdapter(val listener: Listener? = null) :
+    PagingDataAdapter<StoryModel, StoryAdapter.ViewHolder>(this) {
 
-    inner class ViewHolder(private val binding: ViewStoryBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(storyData : StoryModel) {
+    inner class ViewHolder(private val binding: ViewStoryBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(storyData: StoryModel) {
             val id = storyData.id
             val imageLoader = ImageLoader.Builder(binding.root.context).allowHardware(false).build()
 
             binding.ivProfile.transitionName = "profileImage_$id"
             binding.tvItemName.transitionName = "profileName_$id"
+            binding.tvItemDescription.transitionName = "itemDescription_$id"
             binding.ivItemPhoto.transitionName = "itemPhoto_$id"
 
             binding.tvItemName.text = storyData.name
@@ -40,7 +43,8 @@ class StoryAdapter(val listener: Listener? = null) : PagingDataAdapter<StoryMode
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         getItem(holder.bindingAdapterPosition)?.let {
-            holder.bind(it) }
+            holder.bind(it)
+        }
     }
 
     interface Listener {

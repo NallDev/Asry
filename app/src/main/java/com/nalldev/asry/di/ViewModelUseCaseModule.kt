@@ -3,8 +3,11 @@ package com.nalldev.asry.di
 import android.content.Context
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
+import com.nalldev.asry.domain.repositories.AddStoryRepository
 import com.nalldev.asry.domain.repositories.AuthRepository
 import com.nalldev.asry.domain.usecases.add_story.AddStoryUseCases
+import com.nalldev.asry.domain.usecases.add_story.PostStoryUseCase
+import com.nalldev.asry.domain.usecases.add_story.PostStoryValidatorUseCase
 import com.nalldev.asry.domain.usecases.add_story.StartLocationUpdateUseCase
 import com.nalldev.asry.domain.usecases.add_story.StopLocationUpdateUseCase
 import com.nalldev.asry.domain.usecases.auth.AuthUseCases
@@ -71,12 +74,23 @@ object ViewModelUseCaseModule {
 
     @Provides
     @ViewModelScoped
+    fun providePostStoryUseCase(addStoryRepository: AddStoryRepository) : PostStoryUseCase = PostStoryUseCase(addStoryRepository)
+
+    @Provides
+    @ViewModelScoped
+    fun providePostStoryValidatorUseCase() : PostStoryValidatorUseCase = PostStoryValidatorUseCase()
+
+    @Provides
+    @ViewModelScoped
     fun provideAddStoryUseCases(
         startLocationUpdateUseCase: StartLocationUpdateUseCase,
-        stopLocationUpdateUseCase: StopLocationUpdateUseCase
+        stopLocationUpdateUseCase: StopLocationUpdateUseCase,
+        postStoryUseCase: PostStoryUseCase,
+        postStoryValidatorUseCase: PostStoryValidatorUseCase
     ): AddStoryUseCases = AddStoryUseCases(
         startLocationUpdateUseCase,
-        stopLocationUpdateUseCase
+        stopLocationUpdateUseCase,
+        postStoryUseCase,
+        postStoryValidatorUseCase
     )
-
 }

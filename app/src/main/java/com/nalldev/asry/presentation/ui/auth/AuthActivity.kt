@@ -64,6 +64,8 @@ class AuthActivity : AppCompatActivity() {
                     binding.motionLayout.transitionToEnd()
                 }
             }
+
+            clearInput()
         }
 
         isRegisterFormValid.observe(this@AuthActivity) { isRegisterFormValid ->
@@ -91,12 +93,6 @@ class AuthActivity : AppCompatActivity() {
         }
 
         navigateState.observe(this@AuthActivity) { navigateState ->
-            if (navigateState == AuthViewModel.NavigateState.LOGIN) {
-                binding.motionLayout.post {
-                    binding.motionLayout.transitionToStart()
-                }
-                clearInput()
-            }
             if (navigateState == AuthViewModel.NavigateState.MAIN) {
                 val intent = Intent(this@AuthActivity, MainActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -120,12 +116,10 @@ class AuthActivity : AppCompatActivity() {
 
         tvLogin.setOnClickListener {
             viewModel.setTransitionState(AuthViewModel.TransitionState.START)
-            clearInput()
         }
 
         tvRegister.setOnClickListener {
             viewModel.setTransitionState(AuthViewModel.TransitionState.END)
-            clearInput()
         }
 
         binding.edRegisterName.doOnTextChanged { text, _, _, _ ->

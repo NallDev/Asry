@@ -4,7 +4,7 @@ import com.nalldev.asry.domain.datasource.NetworkDataSource
 import com.nalldev.asry.domain.models.LoginRequestModel
 import com.nalldev.asry.domain.models.LoginResponseModel
 import com.nalldev.asry.domain.models.RegisterRequestModel
-import com.nalldev.asry.domain.models.RegisterResponseModel
+import com.nalldev.asry.domain.models.BaseResponseModel
 import com.nalldev.asry.domain.repositories.AuthRepository
 import com.nalldev.asry.util.Mapper
 import io.reactivex.rxjava3.core.Single
@@ -14,11 +14,11 @@ class AuthRepositoryImpl @Inject constructor(
     private val networkDataSource: NetworkDataSource
 ) : AuthRepository {
 
-    override fun register(request: RegisterRequestModel): Single<RegisterResponseModel> {
+    override fun register(request: RegisterRequestModel): Single<BaseResponseModel> {
         val requestEntity = Mapper.registerToEntity(request)
         return networkDataSource.register(requestEntity)
             .map { responseEntity ->
-                Mapper.registerToDomain(responseEntity)
+                Mapper.baseResponseToDomain(responseEntity)
             }
     }
 

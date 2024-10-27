@@ -131,8 +131,29 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:text="@string/the_send_button_will_be_active_when_the_application_has_got_your_location_keep_gps_active"/>
 
+            <TextView
+                android:id="@+id/tv_location_coordinate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:textSize="12sp"
+                android:fontFamily="@font/space_grotesk_regular"
+                android:textColor="@color/success"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="@id/cb_location"
+                app:layout_constraintTop_toBottomOf="@id/cb_location"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="Your current location : 123, 123"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+    <com.nalldev.asry.util.CharacterLoadingView
+        android:id="@+id/loading_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:elevation="9dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

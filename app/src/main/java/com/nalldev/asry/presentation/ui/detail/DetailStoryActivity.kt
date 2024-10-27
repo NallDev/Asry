@@ -41,6 +41,7 @@ class DetailStoryActivity : AppCompatActivity() {
         storyData?.let {
             binding.ivDetailProfile.transitionName = "profileImage_${it.id}"
             binding.tvDetailName.transitionName = "profileName_${it.id}"
+            binding.tvDetailDescription.transitionName = "itemDescription_${it.id}"
             binding.ivDetailPhoto.transitionName = "itemPhoto_${it.id}"
 
             binding.tvDetailName.text = storyData.name

@@ -1,6 +1,6 @@
 package com.nalldev.asry.domain.models
 
-data class RegisterResponseModel(
+data class BaseResponseModel(
     val isError: Boolean,
     val message: String
 )

@@ -1,6 +1,7 @@
 package com.nalldev.asry.presentation.ui.add_story
 
 import android.Manifest
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -17,9 +18,12 @@ import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
+import androidx.core.widget.doOnTextChanged
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nalldev.asry.R
 import com.nalldev.asry.databinding.ActivityAddStoryBinding
+import com.nalldev.asry.presentation.ui.home.MainActivity
+import com.nalldev.asry.util.UIState
 import com.nalldev.asry.util.addPersistenceUri
 import com.nalldev.asry.util.showToast
 import dagger.hilt.android.AndroidEntryPoint
@@ -81,23 +85,68 @@ class AddStoryActivity : AppCompatActivity() {
 
     private fun initObserver() = with(viewModel) {
         coordinate.observe(this@AddStoryActivity) { latLng ->
-            if (latLng != null) {
-                println("LOKASI SAYA DAPATKAN : ${latLng}")
+            if (latLng.value != null) {
+                binding.tvLocationCoordinate.text = getString(R.string.current_location, latLng.value.latitude.toString(), latLng.value.longitude.toString())
+                binding.tvLocationCoordinate.isVisible = true
+                binding.tvLocationDescription.isVisible = false
             } else {
                 stopLocationUpdates()
+                binding.tvLocationCoordinate.isVisible = false
+            }
+        }
+
+        useLocation.observe(this@AddStoryActivity) { isUseLocation ->
+            binding.tvLocationDescription.isVisible = isUseLocation
+        }
+
+        isFormValid.observe(this@AddStoryActivity) { isValid ->
+            if (isValid) {
+                binding.buttonAdd.backgroundTintList = ContextCompat.getColorStateList(this@AddStoryActivity, R.color.color_primary_background)
+                binding.buttonAdd.setTextColor(ContextCompat.getColorStateList(this@AddStoryActivity, R.color.color_primary))
+            } else {
+                binding.buttonAdd.backgroundTintList = ContextCompat.getColorStateList(this@AddStoryActivity, R.color.color_primary_background_disable)
+                binding.buttonAdd.setTextColor(ContextCompat.getColorStateList(this@AddStoryActivity, R.color.button_disable))
+            }
+
+            binding.buttonAdd.isEnabled = isValid
+        }
+
+        toastEvent.observe(this@AddStoryActivity) { message ->
+            showToast(message)
+        }
+
+        addStoryResult.observe(this@AddStoryActivity) {uiState ->
+            when(uiState) {
+                is UIState.Error -> binding.loadingView.isVisible = false
+                is UIState.Loading -> binding.loadingView.isVisible = true
+                is UIState.Success -> binding.loadingView.isVisible = false
+            }
+        }
+
+        navigateState.observe(this@AddStoryActivity) { navigateState ->
+            if (navigateState == AddStoryViewModel.NavigateState.MAIN) {
+                navigateToMain()
             }
         }
     }
 
     private fun initListener() = with(binding) {
         cbLocation.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.setUseLocation(isChecked)
+
             if (isChecked) {
                 checkPermission()
             } else {
                 viewModel.setCoordinate(null)
             }
+        }
 
-            tvLocationDescription.isVisible = isChecked
+        edAddDescription.doOnTextChanged { text, _, _, _ ->
+            viewModel.setDescription(text.toString())
+        }
+
+        buttonAdd.setOnClickListener {
+            viewModel.doPostStory()
         }
     }
 
@@ -143,6 +192,14 @@ class AddStoryActivity : AppCompatActivity() {
             data = Uri.fromParts("package", packageName, null)
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_NO_HISTORY or Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS)
         }
+        startActivity(intent)
+    }
+
+    private fun navigateToMain() {
+        val intent = Intent(this, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+
+        setResult(Activity.RESULT_OK, intent)
         startActivity(intent)
     }
 

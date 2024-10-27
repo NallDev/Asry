@@ -8,7 +8,7 @@ import com.nalldev.asry.R
 import com.nalldev.asry.domain.models.LoginRequestModel
 import com.nalldev.asry.domain.models.LoginResponseModel
 import com.nalldev.asry.domain.models.RegisterRequestModel
-import com.nalldev.asry.domain.models.RegisterResponseModel
+import com.nalldev.asry.domain.models.BaseResponseModel
 import com.nalldev.asry.domain.models.UserModel
 import com.nalldev.asry.domain.usecases.auth.AuthUseCases
 import com.nalldev.asry.domain.usecases.user_session.UserSessionUseCases
@@ -49,8 +49,8 @@ class AuthViewModel @Inject constructor(
     private val _isLoginFormValid = MutableLiveData<Boolean>()
     val isLoginFormValid: LiveData<Boolean> get() = _isLoginFormValid
 
-    private val _registerResult = MutableLiveData<UIState<RegisterResponseModel>>()
-    val registerResult: LiveData<UIState<RegisterResponseModel>> get() = _registerResult
+    private val _registerResult = MutableLiveData<UIState<BaseResponseModel>>()
+    val registerResult: LiveData<UIState<BaseResponseModel>> get() = _registerResult
 
     private val _loginResult = MutableLiveData<UIState<LoginResponseModel>>()
     val loginResult: LiveData<UIState<LoginResponseModel>> get() = _loginResult
@@ -105,7 +105,7 @@ class AuthViewModel @Inject constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ data ->
                 _registerResult.postValue(UIState.Success(data))
-                _navigateState.postValue(NavigateState.LOGIN)
+                _transitionState.postValue(TransitionState.START)
                 _toastEvent.postValue(context.getString(R.string.register_success_msg))
             }, { throwable ->
                 val message = CommonHelper.getErrorMessage(throwable, context)
@@ -185,7 +185,7 @@ class AuthViewModel @Inject constructor(
     }
 
     enum class NavigateState {
-        LOGIN, MAIN
+        MAIN
     }
 
     override fun onCleared() {

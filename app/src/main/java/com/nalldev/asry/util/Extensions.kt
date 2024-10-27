@@ -6,14 +6,16 @@ import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.exifinterface.media.ExifInterface
+import java.io.ByteArrayOutputStream
 import java.io.File
+import java.io.FileOutputStream
 import java.util.Date
 
 fun Activity.hideKeyboard() {
@@ -39,20 +41,6 @@ fun Context.createTempFile(): File {
     return File.createTempFile(Date().toString(), ".jpg", this.applicationContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES))
 }
 
-fun Bitmap.getRotatedBitmap(file: File): Bitmap {
-    val orientation = ExifInterface(file).getAttributeInt(
-        ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED
-    )
-
-    return when (orientation) {
-        ExifInterface.ORIENTATION_ROTATE_90 -> CommonHelper.rotateImage(this, 90F)
-        ExifInterface.ORIENTATION_ROTATE_180 -> CommonHelper.rotateImage(this, 180F)
-        ExifInterface.ORIENTATION_ROTATE_270 -> CommonHelper.rotateImage(this, 270F)
-        ExifInterface.ORIENTATION_NORMAL -> this
-        else -> this
-    }
-}
-
 fun Context.addPersistenceUri(uri : Uri, callback : ((Uri) -> Unit)? = null) {
     val addFlag = Intent.FLAG_GRANT_READ_URI_PERMISSION
     contentResolver.takePersistableUriPermission(uri, addFlag)
@@ -61,4 +49,20 @@ fun Context.addPersistenceUri(uri : Uri, callback : ((Uri) -> Unit)? = null) {
 
 fun Context.showToast(message : String) {
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+}
+
+fun File.reduceFileImage(): File {
+    val file = this
+    val bitmap = BitmapFactory.decodeFile(file.path)
+    var compressQuality = 100
+    var streamLength: Int
+    do {
+        val bmpStream = ByteArrayOutputStream()
+        bitmap?.compress(Bitmap.CompressFormat.JPEG, compressQuality, bmpStream)
+        val bmpPicByteArray = bmpStream.toByteArray()
+        streamLength = bmpPicByteArray.size
+        compressQuality -= 5
+    } while (streamLength > 1000000)
+    bitmap?.compress(Bitmap.CompressFormat.JPEG, compressQuality, FileOutputStream(file))
+    return file
 }

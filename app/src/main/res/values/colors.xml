@@ -7,9 +7,14 @@
     <color name="blue_300">#384DAA</color>
     <color name="color_primary_background">#E9EBFE</color>
 
+
+    <color name="color_primary_background_disable">#80E9EBFE</color>
+
     <color name="danger">#FF5255</color>
     <color name="danger_background">#FAEAEE</color>
     <color name="color_secondary">#FE7474</color>
+
+    <color name="success">#52FF83</color>
 
     <color name="text_sub">#C0C0C0</color>
     <color name="text_hint">#9EA1AE</color>

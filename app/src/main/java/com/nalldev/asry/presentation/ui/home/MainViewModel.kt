@@ -2,13 +2,10 @@ package com.nalldev.asry.presentation.ui.home
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
-import androidx.paging.rxjava3.cachedIn
+import androidx.paging.cachedIn
 import com.nalldev.asry.R
-import com.nalldev.asry.domain.models.StoryModel
 import com.nalldev.asry.domain.usecases.main.FetchAllStoriesUseCase
 import com.nalldev.asry.domain.usecases.user_session.UserSessionUseCases
 import com.nalldev.asry.util.SingleLiveEvent
@@ -17,7 +14,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
 @HiltViewModel
@@ -27,11 +23,7 @@ class MainViewModel @Inject constructor(
     @ApplicationContext private val context: Context
 ) : ViewModel() {
 
-    @OptIn(ExperimentalCoroutinesApi::class)
-    val storiesObservable = fetchAllStoriesUseCase().cachedIn(viewModelScope).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-
-    private val _stories : MutableLiveData<PagingData<StoryModel>> = MutableLiveData()
-    val stories : LiveData<PagingData<StoryModel>> = _stories
+    val stories = fetchAllStoriesUseCase().cachedIn(viewModelScope)
 
     private val _navigateState = SingleLiveEvent<NavigateState>()
     val navigateState: LiveData<NavigateState> = _navigateState
@@ -42,15 +34,10 @@ class MainViewModel @Inject constructor(
     private val _toastEvent = SingleLiveEvent<String>()
     val toastEvent: LiveData<String> = _toastEvent
 
-    private val disposables = CompositeDisposable()
+    var page : Int = 0
+        private set
 
-    init {
-        disposables.add(
-            storiesObservable.subscribe{ pagingData ->
-                _stories.postValue(pagingData)
-            }
-        )
-    }
+    private val disposables = CompositeDisposable()
 
     fun doLogOut() {
         val disposable = userSessionUseCases.removeUserSession()
@@ -65,12 +52,17 @@ class MainViewModel @Inject constructor(
         disposables.add(disposable)
     }
 
+    fun addPage() {
+        page = page.plus(1)
+    }
+
     fun reloadStories() {
+        page = 0
         _reloadStories.call()
     }
 
     enum class NavigateState {
-        AUTH, DETAIL
+        AUTH
     }
 
     override fun onCleared() {
