@@ -47,4 +47,6 @@
     <string name="convert_uri_fail_msg">Ohhh tidak, aplikasi tidak dapat memproses foto Anda</string>
     <string name="post_story_success_msg">Ceritamu berhasil di posting</string>
     <string name="current_location">Lokasimu saat ini %s, %s</string>
+    <string name="are_you_sure_want_to_logout">Apakah anda yakin ingin keluar?</string>
+    <string name="logout">Keluar</string>
 </resources>
