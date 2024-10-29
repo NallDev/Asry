@@ -33,6 +33,7 @@
     <string name="login_success_msg">Selamat datang di Asry</string>
     <string name="current_language">Bahasa saat ini</string>
     <string name="english">Inggris</string>
+    <string name="indonesia">Indonesia</string>
     <string name="retry">Muat ulang</string>
     <string name="story">Cerita</string>
     <string name="permission_denied_title">Ahhhhh</string>

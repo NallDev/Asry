@@ -12,8 +12,10 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.util.Pair
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.nalldev.asry.R
 import com.nalldev.asry.databinding.ActivityMainBinding
+import com.nalldev.asry.databinding.BottomSheetLogoutBinding
 import com.nalldev.asry.databinding.ViewStoryBinding
 import com.nalldev.asry.domain.models.StoryModel
 import com.nalldev.asry.presentation.adapter.LoadingStateAdapter
@@ -25,6 +27,7 @@ import com.nalldev.asry.presentation.ui.maps_story.MapsStoryActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -38,6 +41,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var storyAdapter: StoryAdapter
 
     private lateinit var loadingAdapter: LoadingStateAdapter
+    private var bottomSheetLogout: BottomSheetDialog? = null
 
     private val storyAdapterListener = object : StoryAdapter.Listener {
         override fun onItemClicked(storyData: StoryModel, view: ViewStoryBinding) {
@@ -72,6 +76,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initView() = with(binding) {
+        tvCurrentLanguage.text = if (Locale.getDefault().language == "in") {
+            getString(R.string.indonesia)
+        } else {
+            getString(R.string.english)
+        }
+
         storyAdapter = StoryAdapter(storyAdapterListener)
         loadingAdapter = LoadingStateAdapter {
             storyAdapter.retry()
@@ -120,7 +130,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         actionLogout.setOnClickListener {
-            viewModel.doLogOut()
+            showBottomSheetLogout()
         }
 
         actionLanguage.setOnClickListener {
@@ -134,6 +144,24 @@ class MainActivity : AppCompatActivity() {
         binding.fabAddStory.setOnClickListener {
             navigateToCamera()
         }
+    }
+
+    private fun showBottomSheetLogout() {
+        bottomSheetLogout?.dismiss()
+
+        val bottomSheetBinding = BottomSheetLogoutBinding.inflate(layoutInflater)
+        bottomSheetBinding.btnLogout.setOnClickListener {
+            bottomSheetLogout?.dismiss()
+            viewModel.doLogOut()
+        }
+
+        bottomSheetLogout = BottomSheetDialog(this)
+        bottomSheetLogout?.setContentView(bottomSheetBinding.root)
+
+        bottomSheetLogout?.setOnDismissListener {
+            bottomSheetLogout = null
+        }
+        bottomSheetLogout?.show()
     }
 
     private fun navigateToAuth() {

@@ -13,6 +13,7 @@ import coil.load
 import com.nalldev.asry.R
 import com.nalldev.asry.databinding.ActivityDetailStoryBinding
 import com.nalldev.asry.domain.models.StoryModel
+import com.nalldev.asry.util.toFormattedDate
 
 class DetailStoryActivity : AppCompatActivity() {
 
@@ -45,7 +46,7 @@ class DetailStoryActivity : AppCompatActivity() {
             binding.ivDetailPhoto.transitionName = "itemPhoto_${it.id}"
 
             binding.tvDetailName.text = storyData.name
-            binding.tvDetailDate.text = storyData.createdAt
+            binding.tvDetailDate.text = storyData.createdAt.toFormattedDate()
             binding.tvDetailDescription.text = storyData.description
             val imageLoader = ImageLoader.Builder(this).allowHardware(false).build()
             binding.ivDetailPhoto.load(storyData.photoUrl, imageLoader) {

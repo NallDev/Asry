@@ -16,7 +16,10 @@ import android.widget.Toast
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
+import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
 
 fun Activity.hideKeyboard() {
     val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -65,4 +68,19 @@ fun File.reduceFileImage(): File {
     } while (streamLength > 1000000)
     bitmap?.compress(Bitmap.CompressFormat.JPEG, compressQuality, FileOutputStream(file))
     return file
+}
+
+fun String.toFormattedDate(): String {
+    val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+    inputFormat.timeZone = TimeZone.getTimeZone("UTC")
+
+    val outputFormat = SimpleDateFormat("dd MMM yyyy, HH:mm", Locale.getDefault())
+    outputFormat.timeZone = TimeZone.getDefault()
+
+    return try {
+        val date: Date = inputFormat.parse(this) ?: return this
+        outputFormat.format(date)
+    } catch (e: Exception) {
+        this
+    }
 }

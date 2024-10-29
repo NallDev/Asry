@@ -33,6 +33,7 @@
     <string name="login_success_msg">Welcome to Asry</string>
     <string name="current_language">Current Language</string>
     <string name="english">English</string>
+    <string name="indonesia">Indonesian</string>
     <string name="retry">Retry</string>
     <string name="story">Story</string>
     <string name="permission_denied_title">Ahhhhh</string>
@@ -46,4 +47,6 @@
     <string name="convert_uri_fail_msg">Ohhh nooo, application can\'t process your image</string>
     <string name="post_story_success_msg">Your story has been successfully posted</string>
     <string name="current_location">Your current location %s, %s</string>
+    <string name="are_you_sure_want_to_logout">Are you sure want to logout?</string>
+    <string name="logout">Logout</string>
 </resources>

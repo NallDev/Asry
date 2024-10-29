@@ -159,7 +159,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_login_label_desc" />
 
-                <androidx.appcompat.widget.AppCompatEditText
+                <com.nalldev.asry.util.EmailEditText
                     android:id="@+id/ed_login_email"
                     android:layout_width="0dp"
                     android:layout_height="48dp"
